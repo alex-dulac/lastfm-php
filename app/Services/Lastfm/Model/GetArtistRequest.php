@@ -4,16 +4,15 @@ namespace App\Services\Lastfm\Model;
 
 class GetArtistRequest
 {
-    /** @var string */
-    private $name;
+    private string $artistName;
 
     public function __construct($name)
     {
-        $this->name = $name;
+        $this->artistName = $name;
     }
 
-    public function getName(): string
+    public function getArtistName(): string
     {
-        return $this->name;
+        return $this->artistName;
     }
 }

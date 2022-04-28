@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
-import { Artist } from "./artist.model";
+import { Artist } from "@modules/artist/artist.model";
 import {Observable} from "rxjs";
 
 @Injectable({

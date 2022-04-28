@@ -2,14 +2,22 @@
 
 namespace App\Json\Serializers;
 
-use App\Entities\Artist;
-
 class ArtistSerializer
 {
-    public function serialize(Artist $artist): array
+    public function serialize(array $data): array
     {
+        $stats = [];
+        $stats['listeners'] = $data['stats']['listeners'];
+        $stats['playcount'] = $data['stats']['playcount'];
+
+        $similarArtists = [];
+
         return [
-            'name' => $artist->getName()
+            'name' => $data['name'],
+            'url' => $data['url'],
+            'onTour' => $data['ontour'],
+            'stats' => $stats,
+
         ];
     }
 

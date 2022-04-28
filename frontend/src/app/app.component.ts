@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
-import {Artist} from "./artist.model";
-import {LastfmService} from "./lastfm.service";
+import {Artist} from "@modules/artist/artist.model";
+import {LastfmService} from "@services/lastfm.service";
 import {finalize} from "rxjs";
 
 @Component({

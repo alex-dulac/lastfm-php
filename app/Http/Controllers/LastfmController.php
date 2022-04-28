@@ -2,32 +2,37 @@
 
 namespace App\Http\Controllers;
 
-use App\Libraries\Ioc\Ioc;
-use App\Services\Lastfm\LastfmService;
-use App\Services\Lastfm\Model\GetArtistRequestFactory;
+use App\Services\IocRoutine;
 use Illuminate\Http\Request;
 
 class LastfmController extends Controller
 {
-    public function testing()
+    use IocRoutine;
+
+    public function searchArtist(Request $request)
     {
-        echo json_encode(array('get' => "Testing"));
+        $parameters = $this->getSearchArtistRequestFactory()->parseRequest($request);
+        $data = $this->getLastfmService()->searchArtist($parameters);
+        return $this->getSearchArtistSerializer()->serialize($data);
     }
 
     public function getArtist(Request $request)
     {
         $parameters = $this->getGetArtistRequestFactory()->parseRequest($request);
         $data = $this->getLastfmService()->getArtistInfo($parameters);
-        return $data['artist'];
+        return $this->getArtistSerializer()->serialize($data);
     }
 
-    public function getLastfmService(): LastfmService
+    public function searchAlbum(Request $request)
     {
-        return Ioc::make(LastfmService::class);
+        $parameters = $this->getSearchAlbumRequestFactory()->parseRequest($request);
+        $data = $this->getLastfmService()->searchAlbum($parameters);
+        return $this->getSearchArtistSerializer()->serialize($data);
     }
 
-    public function getGetArtistRequestFactory(): GetArtistRequestFactory
+    public function getAlbum(Request $request)
     {
-        return Ioc::make(GetArtistRequestFactory::class);
+        $parameters = $this->getGetAlbumRequestFactory()->parseRequest($request);
+        return $this->getLastfmService()->getAlbumInfo($parameters);
     }
 }
