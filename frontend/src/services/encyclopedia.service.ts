@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
-import { Artist } from "@modules/artist/artist.model";
+import {HttpClient, HttpParams} from "@angular/common/http";
 import {Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
 })
-export class LastfmService {
+export class EncyclopediaService {
 
   baseUrl = 'http://127.0.0.1:8000/api';
 

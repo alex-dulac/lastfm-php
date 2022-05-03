@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\LastfmController;
+use App\Http\Controllers\EncyclopediaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,7 +15,7 @@ use App\Http\Controllers\LastfmController;
 |
 */
 
-require __DIR__ . '/api/LastfmRoutes.php';
+require __DIR__ . '/api/ApiRoutes.php';
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

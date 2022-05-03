@@ -1,1 +1,1 @@
-# lastfm-php
+# music-encyclopedia-app

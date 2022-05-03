@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Lastfm\Model;
+namespace App\Services\Encyclopedia\Model;
 
 use Illuminate\Http\Request;
 

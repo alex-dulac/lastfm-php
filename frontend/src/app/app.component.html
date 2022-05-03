@@ -1,41 +1,5 @@
-<h2>getArtist</h2>
-
-<div>
-  <button (click)="getArtist()">getArtist</button>
-</div>
-
-<h4>Output:</h4>
-<div>
-  <p>{{ this.artist.name }}</p>
-</div>
-
-<hr style="padding: 50px">
-
-<h2>getTesting</h2>
-
-<div>
-  <button (click)="getTesting()">getTesting</button>
-</div>
-
-<h4>Output:</h4>
-<div>
-  <p>{{ this.successMessage }}</p>
-</div>
-
-<hr style="padding: 50px">
-
-<h2>IS CHER ON TOUR??</h2>
-
-<div>
-  <button (click)="getIsStringOnTour()">is Cher On Tour!?</button>
-</div>
-
-<h4>Cher is......</h4>
-<div *ngIf="this.isCherOnTour === false">
-  <p>not on tour :(</p>
-</div>
-
-<div *ngIf="this.isCherOnTour === true">
-  <p>on FUCKING TOUR</p>
-</div>
-
+<!--
+<app-spinner></app-spinner>
+<router-outlet></router-outlet>
+-->
+<router-outlet></router-outlet>

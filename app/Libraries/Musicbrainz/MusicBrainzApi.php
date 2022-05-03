@@ -1,26 +1,25 @@
 <?php
 
-namespace App\Libraries\Lastfm;
+namespace App\Libraries\Musicbrainz;
 
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
-class LastfmApi
+/**
+ * https://musicbrainz.org/doc/MusicBrainz_API
+ */
+class MusicBrainzApi
 {
     private string $baseUrl;
-    private string $apiKey;
+    public const LIMIT = 10;
 
-    public const SEARCH_ARTIST_URL = '/2.0/?method=artist.search';
-    public const ARTIST_INFO_URL = '/2.0/?method=artist.getinfo';
-
-    public const SEARCH_ALBUM_URL = '/2.0/?method=album.search';
-    public const ALBUM_INFO_URL = '/2.0/?method=album.getinfo';
+    public const ARTIST_URL = '/artist';
+    public const RELEASE_GROUP_URL = '/release-group';
 
     public function __construct()
     {
-        $this->baseUrl = getenv('LASTFM_API_BASE_URL');
-        $this->apiKey = getenv('LASTFM_API_KEY');
+        $this->baseUrl = getenv('MUSICBRAINZ_API_BASE_URL');
     }
 
     /**
@@ -30,11 +29,10 @@ class LastfmApi
     public function searchArtist($searchTerm): mixed
     {
         try {
-            $response = Http::get(
-                $this->baseUrl . self::SEARCH_ARTIST_URL
-                . '&artist=' . $searchTerm
-                . '&api_key=' . $this->apiKey
-                . '&format=json'
+            $response = Http::withHeaders($this->setDefaultHeaders())->get(
+                $this->baseUrl . self::ARTIST_URL
+                . '?query=' . $searchTerm
+                . '&limit=' . self::LIMIT
             );
 
             if ($response->status() != 200) {
@@ -43,14 +41,8 @@ class LastfmApi
             }
 
             $responseContent = $response->json();
-
-            if (isset($responseContent['results'])) {
-                return $responseContent['results']['artistmatches'];
-            }
-
-            if (isset($responseContent['error'])) {
-                Log::error('An error occurred searching for artist: "' . $searchTerm . ' ". Error code: ' . $responseContent['error']);
-                return false;
+            if (isset($responseContent['artists'])) {
+                return $responseContent;
             }
 
             return false;
@@ -63,17 +55,16 @@ class LastfmApi
     }
 
     /**
-     * @param $artistName
+     * @param $artistId
      * @return mixed
      */
-    public function getArtistInfo($artistName): mixed
+    public function getArtistInfo($artistId): mixed
     {
         try {
             $response = Http::get(
-                $this->baseUrl . self::ARTIST_INFO_URL
-                . '&artist=' . $artistName
-                . '&api_key=' . $this->apiKey
-                . '&format=json'
+                $this->baseUrl . self::ARTIST_URL
+                . '/' . $artistId
+                . '?inc=url-rels' // this ensures we get relevant URLs to third party services (spotify, images, etc)
             );
 
             if ($response->status() != 200) {
@@ -83,16 +74,12 @@ class LastfmApi
 
             $responseContent = $response->json();
 
-            if (isset($responseContent['artist'])) {
-                return $responseContent['artist'];
-            }
-
             if (isset($responseContent['error'])) {
-                Log::error('An error occurred getting info for artist: " ' . $artistName . ' ". Error code: ' . $responseContent['error']);
+                Log::error('An error occurred getting info for artist ID: " ' . $artistId . ' ". Error code: ' . $responseContent['error']);
                 return false;
             }
 
-            return false;
+            return $responseContent;
 
         } catch (HttpResponseException $exception) {
             $statusCode = $exception->getResponse()->getStatusCode();
@@ -105,14 +92,12 @@ class LastfmApi
      * @param $searchTerm
      * @return mixed
      */
-    public function searchAlbum($searchTerm): mixed
+    public function searchReleaseGroup($searchTerm): mixed
     {
         try {
-            $response = Http::get(
-                $this->baseUrl . self::SEARCH_ALBUM_URL
-                . '&album=' . $searchTerm
-                . '&api_key=' . $this->apiKey
-                . '&format=json'
+            $response = Http::withHeaders($this->setDefaultHeaders())->get(
+                $this->baseUrl . self::RELEASE_GROUP_URL
+                . '/' . $searchTerm
             );
 
             if ($response->status() != 200) {
@@ -122,13 +107,8 @@ class LastfmApi
 
             $responseContent = $response->json();
 
-            if (isset($responseContent['results'])) {
+            if (isset($responseContent['release_groups'])) {
                 return $responseContent['results']['albummatches'];
-            }
-
-            if (isset($responseContent['error'])) {
-                Log::error('An error occurred searching for album: " ' . $searchTerm . ' ". Error code: ' . $responseContent['error']);
-                return false;
             }
 
             return false;
@@ -141,16 +121,15 @@ class LastfmApi
     }
 
     /**
-     * @param string $artistName
-     * @param string $albumName
+     * @param string $releaseGroupId
      * @return mixed
      */
-    public function getAlbumInfo(string $artistName, string $albumName): mixed
+    public function getReleaseGroup(string $releaseGroupId): mixed
     {
         try {
 
             $response = Http::get(
-                $this->baseUrl . self::ALBUM_INFO_URL
+                $this->baseUrl . self::RELEASE_GROUP_URL
                 . '&api_key=' . $this->apiKey
                 . '&artist=' . $artistName
                 . '&album=' . $albumName
@@ -180,5 +159,13 @@ class LastfmApi
             $content = $exception->getResponse()->getContent();
             throw $exception;
         }
+    }
+
+    private function setDefaultHeaders()
+    {
+        return [
+            'User-Agent' => getenv('MUSICBRAINZ_API_USER_AGENT'), // musicbrainz requires a meaningful User-Agent string with each request. Otherwise requests may be blocked.
+            'Accept' => 'application/json' // otherwise, XML is returned by default
+        ];
     }
 }

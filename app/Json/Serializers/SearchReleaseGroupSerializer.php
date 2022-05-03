@@ -2,7 +2,7 @@
 
 namespace App\Json\Serializers;
 
-class SearchArtistSerializer
+class SearchReleaseGroupSerializer
 {
     public function serialize(array $searchResults)
     {
@@ -10,7 +10,7 @@ class SearchArtistSerializer
             return false;
         }
 
-        $artists = [];
+        $releaseGroups = [];
 
         foreach ($searchResults['artists'] as $searchResult) {
             $tags = [];

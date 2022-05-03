@@ -1,15 +1,21 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {ArtistComponent} from "@modules/artist/components/artist.component";
-import {DashboardComponent} from "@modules/dashboard/components/dashboard.component";
-import {AlbumComponent} from "@modules/album/components/album.component";
-import {ChartsComponent} from "@modules/charts/components/charts.component";
+import {InterfaceLayoutComponent} from "@modules/interface-layout/interface-layout.component";
 
 const routes: Routes = [
-  { path: 'album', component: AlbumComponent },
-  { path: 'artist', component: ArtistComponent },
-  { path: 'charts', component: ChartsComponent },
-  { path: 'dashboard', component: DashboardComponent},
+  {
+    path: '',
+    redirectTo: 'home',
+    pathMatch: 'full'
+  },
+  {
+    path: '',
+    component: InterfaceLayoutComponent,
+    children: [{
+      path: '',
+      loadChildren: () => import('@modules/interface-layout/interface-layout.module').then(m => m.InterfaceLayoutModule)
+    }]
+  }
 ];
 
 @NgModule({

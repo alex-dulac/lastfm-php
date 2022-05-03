@@ -8,12 +8,8 @@ class Ioc
 {
     /**
      * Resolve the given type from the container.
-     *
-     * @param  string  $abstract
-     * @param  array   $parameters
-     * @return mixed
      */
-    public static function make($abstract, array $parameters = [])
+    public static function make(string $abstract, array $parameters = []): mixed
     {
         return call_user_func_array([Container::getInstance(), 'make'], func_get_args());
     }

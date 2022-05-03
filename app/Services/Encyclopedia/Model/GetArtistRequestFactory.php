@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Lastfm\Model;
+namespace App\Services\Encyclopedia\Model;
 
 use Illuminate\Http\Request;
 
@@ -10,8 +10,8 @@ class GetArtistRequestFactory
 
     public function parseRequest(Request $request): GetArtistRequest
     {
-        $name = $request->name;
+        $artistId = $request->artistId;
 
-        return new GetArtistRequest($name);
+        return new GetArtistRequest($artistId);
     }
 }

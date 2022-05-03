@@ -3,21 +3,23 @@
 namespace App\Services;
 
 use App\Json\Serializers\ArtistSerializer;
-use App\Json\Serializers\SearchArtistSerializer;
+use App\Json\Serializers\SearchReleaseGroupSerializer;
 use App\Libraries\Ioc\Ioc;
-use App\Services\Lastfm\LastfmService;
-use App\Services\Lastfm\Model\GetAlbumRequestFactory;
-use App\Services\Lastfm\Model\SearchAlbumRequestFactory;
-use App\Services\Lastfm\Model\GetArtistRequestFactory;
-use App\Services\Lastfm\Model\SearchArtistRequestFactory;
+use App\Services\Encyclopedia\EncyclopediaService;
+use App\Services\Encyclopedia\Model\GetReleaseGroupRequestFactory;
+use App\Services\Encyclopedia\Model\SearchReleaseGroupRequestFactory;
+use App\Services\Encyclopedia\Model\GetArtistRequestFactory;
+use App\Services\Encyclopedia\Model\SearchArtistRequestFactory;
 
 trait IocRoutine
 {
-    public function getLastfmService(): LastfmService
+    // services
+    public function getEncyclopediaService(): EncyclopediaService
     {
-        return Ioc::make(LastfmService::class);
+        return Ioc::make(EncyclopediaService::class);
     }
 
+    // request factories
     public function getSearchArtistRequestFactory(): SearchArtistRequestFactory
     {
         return Ioc::make(SearchArtistRequestFactory::class);
@@ -28,23 +30,29 @@ trait IocRoutine
         return Ioc::make(GetArtistRequestFactory::class);
     }
 
-    public function getSearchAlbumRequestFactory(): SearchAlbumRequestFactory
+    public function getSearchReleaseGroupRequestFactory(): SearchReleaseGroupRequestFactory
     {
-        return Ioc::make(SearchAlbumRequestFactory::class);
+        return Ioc::make(SearchReleaseGroupRequestFactory::class);
     }
 
-    public function getGetAlbumRequestFactory(): GetAlbumRequestFactory
+    public function getGetReleaseGroupRequestFactory(): GetReleaseGroupRequestFactory
     {
-        return Ioc::make(GetAlbumRequestFactory::class);
+        return Ioc::make(GetReleaseGroupRequestFactory::class);
     }
 
-    public function getSearchArtistSerializer(): SearchArtistSerializer
+    // serializers
+    public function getSearchArtistSerializer(): SearchReleaseGroupSerializer
     {
-        return Ioc::make(SearchArtistSerializer::class);
+        return Ioc::make(SearchReleaseGroupSerializer::class);
     }
 
     public function getArtistSerializer(): ArtistSerializer
     {
         return Ioc::make(ArtistSerializer::class);
+    }
+
+    public function getSearchReleaseGroupSerializer(): SearchReleaseGroupSerializer
+    {
+        return Ioc::make(SearchReleaseGroupSerializer::class);
     }
 }

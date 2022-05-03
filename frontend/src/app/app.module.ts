@@ -1,21 +1,18 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from "@angular/common/http";
-
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { ArtistComponent } from "@modules/artist/components/artist.component";
-import { AlbumComponent } from "@modules/album/components/album.component";
-import { ChartsComponent } from "@modules/charts/components/charts.component";
-import { DashboardComponent } from "@modules/dashboard/components/dashboard.component";
+import { SpinnerComponent } from '@modules/spinner/spinner.component';
+import { SidebarComponent } from '@modules/sidebar/sidebar.component';
+import { InterfaceLayoutComponent } from '../modules/interface-layout/interface-layout.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ArtistComponent,
-    AlbumComponent,
-    ChartsComponent,
-    DashboardComponent
+    SpinnerComponent,
+    SidebarComponent,
+    InterfaceLayoutComponent
   ],
   imports: [
     BrowserModule,
