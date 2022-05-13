@@ -13,17 +13,20 @@ export class EncyclopediaService {
     private http: HttpClient
   ) { }
 
-  getArtist(name: string): Observable<any> {
+  searchArtist(searchTerm: string): Observable<any> {
     let params = new HttpParams();
 
-    params = params.set('name', name);
+    params = params.set('searchTerm', searchTerm);
 
-    return this.http.get<any>(this.baseUrl + '/Lastfm/getArtist', {params: params});
+    return this.http.get<any>(this.baseUrl + '/Encyclopedia/searchArtist', {params: params});
   }
 
-  getTesting(): Observable<any> {
+  getArtist(artistId: string): Observable<any> {
     let params = new HttpParams();
 
-    return this.http.get<any>(this.baseUrl + '/Lastfm/testing', { params: params });
+    params = params.set('artistId', artistId);
+
+    return this.http.get<any>(this.baseUrl + '/Encyclopedia/getArtist', {params: params});
   }
+
 }

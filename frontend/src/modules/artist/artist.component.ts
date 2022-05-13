@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Artist} from "@modules/artist/artist.model";
-import {debounceTime, distinctUntilChanged, Subject} from "rxjs";
+import {debounceTime, distinctUntilChanged, finalize, Subject} from "rxjs";
 import {EncyclopediaService} from "@services/encyclopedia.service";
 import {ActivatedRoute, Router} from "@angular/router";
 
@@ -15,7 +15,8 @@ export class ArtistComponent implements OnInit {
   artist: Artist = new Artist;
   successMessage: string = '';
   errorMessage: string = '';
-  isCherOnTour: boolean = false;
+
+  searchResults: Artist[] = [];
 
   searchStringSubject: Subject<string> = new Subject<string>();
   searchTerm: string = '';
@@ -27,7 +28,7 @@ export class ArtistComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.route.queryParams.subscribe(
+    /*this.route.queryParams.subscribe(
       (queryParam: any) => {
         if (queryParam['searchTerm']) {
           this.searchTerm = queryParam['searchTerm'];
@@ -41,7 +42,7 @@ export class ArtistComponent implements OnInit {
     ).subscribe((text) => {
       this.searchTerm = text;
       this.search();
-    })
+    })*/
 
   }
 
@@ -62,17 +63,30 @@ export class ArtistComponent implements OnInit {
     });
   }
 
-  /*getArtist(): void {
-    this.encyclopediaService
-      .getArtist('Cher')
+  searchArtist(searchTerm: string): void {
+    this.loading = true;
+
+    this.encyclopediaService.searchArtist(searchTerm)
       .pipe(finalize(() => this.loading = false))
       .subscribe(data => {
         console.log(data);
-          this.artist = data;
+      },
+        error => {
+          this.errorMessage = error.message;
+        });
+  }
+
+  getArtist(artistId: string): void {
+    this.loading = true;
+
+    this.encyclopediaService.getArtist(artistId)
+      .pipe(finalize(() => this.loading = false))
+      .subscribe(data => {
+        console.log(data);
       },
         err => {
         this.errorMessage = err.message;
       });
-  }*/
+  }
 
 }

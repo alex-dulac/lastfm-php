@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import {HomeComponent} from "@modules/home/home.component";
-import {ArtistComponent} from "@modules/artist/components/artist.component";
+import {ArtistComponent} from "@modules/artist/artist.component";
 import {AlbumComponent} from "@modules/album/components/album.component";
 
 export const InterfaceLayoutRoutes: Routes = [
@@ -10,7 +10,11 @@ export const InterfaceLayoutRoutes: Routes = [
   },
   {
     path: 'artist',
-    component: ArtistComponent
+    component: ArtistComponent,
+    children: [{
+      path: '',
+      loadChildren: () => import('@modules/artist/artist.module').then(m => m.ArtistModule)
+    }]
   },
   {
     path: 'album',

@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { SpinnerComponent } from '@modules/spinner/spinner.component';
 import { SidebarComponent } from '@modules/sidebar/sidebar.component';
-import { InterfaceLayoutComponent } from '../modules/interface-layout/interface-layout.component';
+import { InterfaceLayoutComponent } from '@modules/interface-layout/interface-layout.component';
 
 @NgModule({
   declarations: [

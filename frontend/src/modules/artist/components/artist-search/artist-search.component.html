@@ -1,0 +1,17 @@
+<!--<div class="artist-search">
+  <div>
+    <input type="textbox">
+    <button>Search</button>
+  </div>
+</div>-->
+
+<div class="artist-search">
+  <form [formGroup]="searchBox" (ngSubmit)="searchArtist()">
+    <h3>Artist Search</h3>
+    <label>
+      Enter search term:
+      <input type="text" formControlName="searchTerm">
+      <button type="submit" [disabled]="!searchBox.valid">Search</button>
+    </label>
+  </form>
+</div>
