@@ -1,17 +1,30 @@
-<!--<div class="artist-search">
-  <div>
-    <input type="textbox">
-    <button>Search</button>
-  </div>
-</div>-->
+<div class="artist-search wrapper-padding">
+    <form [formGroup]="searchBox" (ngSubmit)="searchArtist()">
+        <h3>Artist Search</h3>
+        <label>
+            <input type="text" formControlName="searchTerm" placeholder="Enter a search term">
+            <button type="submit" [disabled]="!searchBox.valid">Search</button>
+        </label>
+    </form>
+</div>
 
-<div class="artist-search">
-  <form [formGroup]="searchBox" (ngSubmit)="searchArtist()">
-    <h3>Artist Search</h3>
-    <label>
-      Enter search term:
-      <input type="text" formControlName="searchTerm">
-      <button type="submit" [disabled]="!searchBox.valid">Search</button>
-    </label>
-  </form>
+<div class="results-wrapper wrapper-padding">
+
+    <div *ngIf="searchResults === null">
+        <h4>No results.</h4>
+    </div>
+
+    <div *ngIf="searchResults && searchResults.length > 0">
+        <h3>Results for "{{ this.searchTerm }}":</h3>
+        <div class="artist-results">
+            <div *ngFor="let result of searchResults">
+                <p>
+                    <a class="button-white" [routerLink]="['details', result.id]" [queryParams]="{searchTerm: searchTerm}">
+                        <span>{{ result.name }}<br>{{ result.country }}</span>
+                    </a>
+                </p>
+            </div>
+        </div>
+    </div>
+
 </div>

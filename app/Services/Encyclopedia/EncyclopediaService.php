@@ -2,6 +2,7 @@
 
 namespace App\Services\Encyclopedia;
 
+use App\Libraries\LastFm\LastFmApi;
 use App\Libraries\MediaWiki\WikipediaApi;
 use App\Libraries\Musicbrainz\MusicBrainzApi;
 use App\Services\Encyclopedia\Model\GetReleaseGroupRequest;
@@ -13,11 +14,13 @@ class EncyclopediaService
 {
     private MusicBrainzApi $musicBrainzApi;
     private WikipediaApi $wikipediaApi;
+    private LastFmApi $lastFmApi;
 
-    public function __construct(MusicBrainzApi $lastfmApi, WikipediaApi $wikipediaApi)
+    public function __construct(MusicBrainzApi $musicBrainzApi, WikipediaApi $wikipediaApi, LastFmApi $lastFmApi)
     {
-        $this->musicBrainzApi = $lastfmApi;
+        $this->musicBrainzApi = $musicBrainzApi;
         $this->wikipediaApi = $wikipediaApi;
+        $this->lastFmApi = $lastFmApi;
     }
 
     public function searchArtist(SearchArtistRequest $request)
@@ -28,8 +31,12 @@ class EncyclopediaService
 
     public function getArtistInfo(GetArtistRequest $request)
     {
+        $artistData = [];
         $artistId = $request->getArtistId();
-        return $this->musicBrainzApi->getArtistInfo($artistId);
+        $artistData['musicBrainzData'] = $this->musicBrainzApi->getArtistInfo($artistId);
+        $artistData['wikipediaData'] = $this->wikipediaApi->extractWikiIntro($artistData['musicBrainzData']['name']);
+        $artistData['lastFmData'] = $this->lastFmApi->getArtistInfo($artistData['musicBrainzData']['name']);
+        return $artistData;
     }
 
     public function searchReleaseGroup(SearchReleaseGroupRequest $request)

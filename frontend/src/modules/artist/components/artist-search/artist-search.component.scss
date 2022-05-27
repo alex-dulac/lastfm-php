@@ -1,0 +1,13 @@
+
+
+.artist-results {
+    background-color: lightpink;
+    // background-color: #F9F7F7;
+    /*display: flex;
+    align-items: center;
+    justify-content: space-between;*/
+    display: grid;
+    justify-content: center;
+    grid-template-rows:    repeat(4, 100px);
+    grid-template-columns: repeat(3, 1fr);
+}

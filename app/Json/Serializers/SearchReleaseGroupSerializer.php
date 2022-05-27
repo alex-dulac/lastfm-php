@@ -10,6 +10,7 @@ class SearchReleaseGroupSerializer
             return false;
         }
 
+        $artists = [];
         $releaseGroups = [];
 
         foreach ($searchResults['artists'] as $searchResult) {
@@ -30,9 +31,7 @@ class SearchReleaseGroupSerializer
             ];
         }
 
-        return [
-            'artists' => $artists
-        ];
+        return $artists;
     }
 
 }

@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
 /**
- * https://musicbrainz.org/doc/MusicBrainz_API
+ * Docs: https://musicbrainz.org/doc/MusicBrainz_API
  */
 class MusicBrainzApi
 {
@@ -22,11 +22,7 @@ class MusicBrainzApi
         $this->baseUrl = getenv('MUSICBRAINZ_API_BASE_URL');
     }
 
-    /**
-     * @param $searchTerm
-     * @return mixed
-     */
-    public function searchArtist($searchTerm): mixed
+    public function searchArtist(string $searchTerm): mixed
     {
         try {
             $response = Http::withHeaders($this->setDefaultHeaders())->get(
@@ -54,17 +50,14 @@ class MusicBrainzApi
         }
     }
 
-    /**
-     * @param $artistId
-     * @return mixed
-     */
-    public function getArtistInfo($artistId): mixed
+    public function getArtistInfo(string $artistId): mixed
     {
         try {
-            $response = Http::get(
+            $response = Http::withHeaders($this->setDefaultHeaders())->get(
                 $this->baseUrl . self::ARTIST_URL
                 . '/' . $artistId
                 . '?inc=url-rels' // this ensures we get relevant URLs to third party services (spotify, images, etc)
+                . '&fmt=json' // sometimes setting the 'Accept' => 'application/json' header doesn't always ensure json is returned
             );
 
             if ($response->status() != 200) {
@@ -161,11 +154,11 @@ class MusicBrainzApi
         }
     }
 
-    private function setDefaultHeaders()
+    private function setDefaultHeaders(): array
     {
         return [
-            'User-Agent' => getenv('MUSICBRAINZ_API_USER_AGENT'), // musicbrainz requires a meaningful User-Agent string with each request. Otherwise requests may be blocked.
-            'Accept' => 'application/json' // otherwise, XML is returned by default
+            'User-Agent' => getenv('MUSICBRAINZ_API_USER_AGENT'), // musicbrainz requires a meaningful User-Agent string with each request. Requests may be blocked without it.
+            'Accept' => 'application/json' // XML is returned by default
         ];
     }
 }

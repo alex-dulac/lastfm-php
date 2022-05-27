@@ -30,9 +30,7 @@ class SearchArtistSerializer
             ];
         }
 
-        return [
-            'artists' => $artists
-        ];
+        return $artists;
     }
 
 }

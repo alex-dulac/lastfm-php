@@ -1,1 +1,28 @@
-/* You can add global styles to this file, and also import other style files */
+.wrapper-padding {
+    padding: 20px;
+}
+
+a.button-white{
+    display:inline-block;
+    padding:1.0em 3.0em;
+    border:0.15em solid #DBE2EF;
+    margin:0 0.3em 0.3em 0;
+    border-radius:2.0em;
+    box-sizing: border-box;
+    text-decoration:none;
+    font-family:'Roboto',sans-serif;
+    font-weight:300;
+    color:#DBE2EF;
+    text-align:center;
+    transition: all 0.2s;
+}
+a.button-white:hover{
+    color:#000000;
+    background-color:#DBE2EF;
+}
+@media all and (max-width:30em){
+    a.button-white{
+        display:block;
+        margin:0.4em auto;
+    }
+}
