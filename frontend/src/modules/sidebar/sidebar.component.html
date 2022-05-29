@@ -9,7 +9,7 @@
         <li routerLinkActive="active"
             *ngFor="let sidebarLink of sidebarLinks"
             class="nav-item">
-            <a class="button-white" [routerLink]="[sidebarLink.path]">
+            <a class="button-sidebar" [routerLink]="[sidebarLink.path]">
                 <span>{{ sidebarLink.title }}</span>
             </a>
         </li>

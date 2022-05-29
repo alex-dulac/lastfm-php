@@ -1,20 +1,26 @@
-<div class="wrapper-padding">
-    <a [routerLink]="['/artist']"
-       [queryParams]="{searchTerm: searchTerm}"
-       title="Back to Search Results">
-        <i class="fa-solid fa-circle-left"></i>
-    </a>
+<div class="details-wrapper padding">
+    <div class="back-button">
+        <a [routerLink]="['/artist']"
+           [queryParams]="{searchTerm: searchTerm}"
+           title="Back to Search Results">
+            <i class="fa-solid fa-circle-left"></i>
+        </a>
+    </div>
 
-    <h3>{{this.artist.name}}</h3>
-    <p>{{this.artist.disambiguation}}</p>
-    <p>{{this.artist.city}}, {{this.artist.country}}</p>
-    <p>{{this.artist.establishedYear}} - {{this.artist.disbandedYear}}</p>
-    <p>{{this.artist.wikiIntro}}</p>
+    <h1>{{this.artist.name}}</h1>
+    <div class="details-unit">
+        <p>{{this.artist.disambiguation}}</p>
+        <p>Origin: {{this.artist.city}}, {{this.artist.country}}</p>
+        <p>Established: {{this.artist.establishedYear}}</p>
+    </div>
+    <div class="details-unit">
+        <p>{{this.artist.wikiIntro}}</p>
+    </div>
 
     <h5 *ngIf="artist.links">Links</h5>
     <div *ngFor="let link of artist.links">
         <div *ngIf="link.type === 'spotify'">
-            <a href="{{link.source}}" target="_blank">
+            <a href="{{link.source}}" target="_blank" title="Listen to this artist on Spotify">
                 <i class="fa-brands fa-spotify"></i>
             </a>
         </div>

@@ -73,21 +73,21 @@ class WikipediaApi
             return false;
 
         } catch (HttpResponseException $exception) {
-            $statusCode = $exception->getResponse()->getStatusCode();
-            $content = $exception->getResponse()->getContent();
-            throw $exception;
+            throw new $exception;
         }
     }
 
     private function keyWordFound($extract): bool
     {
-        return str_contains($extract, 'artist')
+        return (
+            str_contains($extract, 'artist')
             || str_contains($extract, 'band')
             || str_contains($extract, 'composer')
             || str_contains($extract, 'singer')
             || str_contains($extract, 'rapper')
             || str_contains($extract, 'guitarist')
-            || str_contains($extract, 'singer');
+            || str_contains($extract, 'singer')
+            ) && !str_contains($extract, 'may refer to');
     }
 
 }
