@@ -49,10 +49,10 @@ class WikipediaApi
                 }
 
                 // might've grabbed the incorrect wiki article! let's try again
-                $title = $title . ' (band)';
+                $titleBand = $title . ' (band)';
                 $response = Http::get(
                     $this->baseUrl . self::EXTRACT_URL
-                    . '&titles=' . $title
+                    . '&titles=' . $titleBand
                     . '&redirects='
                 );
 
@@ -66,6 +66,27 @@ class WikipediaApi
                         && $this->keyWordFound($responseContentSecondAttempt['extract'])
                     ) {
                         return $responseContentSecondAttempt;
+                    }
+
+                    // okay...try again. there's probably a better way to be doing this :)
+                    $titleMusician = $title . ' (musician)';
+                    $response = Http::get(
+                        $this->baseUrl . self::EXTRACT_URL
+                        . '&titles=' . $titleMusician
+                        . '&redirects='
+                    );
+
+                    $responseContentThirdAttempt = $response->json();
+
+                    if (isset($responseContentThirdAttempt['query']['pages'])) {
+                        $responseContentThirdAttempt = current($responseContentThirdAttempt['query']['pages']);
+
+                        if (
+                            isset($responseContentThirdAttempt['extract'])
+                            && $this->keyWordFound($responseContentThirdAttempt['extract'])
+                        ) {
+                            return $responseContentThirdAttempt;
+                        }
                     }
                 }
             }

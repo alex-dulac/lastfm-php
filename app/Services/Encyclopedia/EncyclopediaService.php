@@ -34,8 +34,10 @@ class EncyclopediaService
         $artistData = [];
         $artistId = $request->getArtistId();
         $artistData['musicBrainzData'] = $this->musicBrainzApi->getArtistInfo($artistId);
-        $artistData['wikipediaData'] = $this->wikipediaApi->extractWikiIntro($artistData['musicBrainzData']['name']);
-        $artistData['lastFmData'] = $this->lastFmApi->getArtistInfo($artistData['musicBrainzData']['name']);
+
+        $artistName = str_replace('-', '%2D', $artistData['musicBrainzData']['name']);
+        $artistData['wikipediaData'] = $this->wikipediaApi->extractWikiIntro($artistName);
+        $artistData['lastFmData'] = $this->lastFmApi->getArtistInfo($artistName);
         return $artistData;
     }
 

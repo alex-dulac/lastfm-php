@@ -1,6 +1,5 @@
-<div class="artist-search padding">
+<div class="search-form padding">
     <form [formGroup]="searchBox" (ngSubmit)="searchArtist()">
-        <h3>Artist Search</h3>
         <label>
             <input type="text" class="search-field" formControlName="searchTerm" placeholder="Enter a search term">
             <button type="submit" class="button-search" [disabled]="!searchBox.valid">Search</button>
@@ -10,11 +9,11 @@
 
 <div class="results-wrapper padding">
     <div *ngIf="searchResults === null">
-        <h4>No results.</h4>
+        <h5>No results.</h5>
     </div>
 
     <div *ngIf="searchResults && searchResults.length > 0">
-        <h3>Results for "{{ this.searchTerm }}":</h3>
+        <h5>Results for "{{ this.searchTerm }}":</h5>
         <div class="search-results padding">
             <div *ngFor="let result of searchResults">
                 <p>

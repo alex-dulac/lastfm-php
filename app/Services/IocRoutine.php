@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Json\Serializers\ArtistSerializer;
+use App\Json\Serializers\SearchArtistSerializer;
 use App\Json\Serializers\SearchReleaseGroupSerializer;
 use App\Libraries\Ioc\Ioc;
 use App\Services\Encyclopedia\EncyclopediaService;
@@ -17,6 +18,11 @@ trait IocRoutine
     public function getEncyclopediaService(): EncyclopediaService
     {
         return Ioc::make(EncyclopediaService::class);
+    }
+
+    public function getCountryService(): CountryService
+    {
+        return Ioc::make(CountryService::class);
     }
 
     // request factories
@@ -41,9 +47,9 @@ trait IocRoutine
     }
 
     // serializers
-    public function getSearchArtistSerializer(): SearchReleaseGroupSerializer
+    public function getSearchArtistSerializer(): SearchArtistSerializer
     {
-        return Ioc::make(SearchReleaseGroupSerializer::class);
+        return Ioc::make(SearchArtistSerializer::class);
     }
 
     public function getArtistSerializer(): ArtistSerializer
