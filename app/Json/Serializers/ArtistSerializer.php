@@ -2,8 +2,12 @@
 
 namespace App\Json\Serializers;
 
+use App\Services\IocRoutine;
+
 class ArtistSerializer
 {
+    use IocRoutine;
+
     public function serialize(array $data): array
     {
         $links = [];
@@ -33,10 +37,14 @@ class ArtistSerializer
             }
         }
 
+        if (isset($data['musicBrainzData']['country'])) {
+            $country = $this->getCountryService()->getCountryNameFromCountryCode($data['musicBrainzData']['country']);
+        }
+
         return [
             'id' => $data['musicBrainzData']['id'],
             'name' => $data['musicBrainzData']['name'],
-            'country' => $data['musicBrainzData']['country'] ?? '',
+            'country' => $country ?? '',
             'city' => $data['musicBrainzData']['begin-area']['name'] ?? '',
             'disambiguation' => $data['musicBrainzData']['disambiguation'] ?? '',
             'artistType' => $data['musicBrainzData']['type'],

@@ -7,6 +7,17 @@
     </form>
 </div>
 
+<div *ngIf="loading; else loaded" class="spinner-wrapper">
+    <div class="spinner">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</div>
+
+<ng-template #loaded>
+
 <div class="results-wrapper padding">
     <div *ngIf="searchResults === null">
         <h5>No results.</h5>
@@ -28,3 +39,5 @@
         </div>
     </div>
 </div>
+
+</ng-template>

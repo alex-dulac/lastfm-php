@@ -1,5 +1,4 @@
 import {NgModule} from '@angular/core';
-import {RouterModule} from '@angular/router';
 import {CommonModule} from '@angular/common';
 import {ArtistSearchComponent} from "@modules/artist/components/artist-search/artist-search.component";
 import {ArtistDetailComponent} from "@modules/artist/components/artist-detail/artist-detail.component";

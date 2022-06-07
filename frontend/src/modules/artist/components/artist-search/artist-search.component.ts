@@ -11,7 +11,7 @@ import {FormBuilder, Validators} from "@angular/forms";
 })
 export class ArtistSearchComponent implements OnInit {
 
-    loading: boolean = true;
+    loading: boolean;
     searchTerm: string;
     errorMessage: string = '';
 

@@ -11,7 +11,7 @@ import {ArtistDetailsModel} from "@modules/artist/models/artist-details.model";
 })
 export class ArtistDetailComponent implements OnInit {
 
-    loading: boolean = true;
+    loading: boolean;
     errorMessage: string = 'An error has occurred. Please try again.';
     searchTerm: string;
     searchResultsView: string;
