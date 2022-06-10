@@ -1,0 +1,131 @@
+<div *ngIf="loading; else loaded" class="spinner-wrapper">
+    <div class="spinner">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</div>
+
+<ng-template #loaded>
+    <div class="details-wrapper padding">
+        <div class="artist-details">
+            <div class="back-button-wrapper">
+                <a [routerLink]="['/artist']"
+                   [queryParams]="{searchTerm: searchTerm}"
+                   class="dashboard-fa-button"
+                   title="Back to Search Results">
+                    <i class="fa-solid fa-circle-left fa-2x"></i>
+                </a>
+            </div>
+
+            <div class="artist-name">
+                <h1>{{artist.name}}</h1>
+            </div>
+            <div class="artist-picture">
+                <div *ngIf="artist.links.length > 0">
+                    <div *ngFor="let link of artist.links">
+                        <div *ngIf="link.type === 'image'">
+                            <img class="artist-image" src="{{link.source}}">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="artist-facts">
+                <div class="facts-1">
+                    <span>Artist type: {{artist.artistType}}</span>
+                    <br>
+                    <span>{{artist.disambiguation}}</span>
+                </div>
+                <div class="facts-2">
+                    <span>Origin: {{artist.city}}, {{artist.country}}</span>
+                    <br>
+                    <span>{{artist.establishedYear}} - {{artist.disbandedYear}}</span>
+                </div>
+                <div class="facts-3">
+                    <div *ngIf="artist.onTour === true">
+                        <p>{{artist.name}} is currently on tour!</p>
+                    </div>
+                    <div *ngIf="artist.onTour === false">
+                        <p>{{artist.name}} is currently not touring.</p>
+                    </div>
+                </div>
+                <div class="facts-4">
+                    <p class="last-fm"><a href="{{artist.lastFmUrl}}" target="_blank">LastFm</a> stats:</p>
+                    <ul>
+                        <li>Listeners: {{artist.lastFmListenerCount}}</li>
+                        <li>Plays: {{artist.lastFmPlayCount}}</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="artist-wiki">
+                <p>{{artist.wikiIntro}}</p>
+            </div>
+            <div class="artist-links">
+                <div *ngIf="artist.links.length > 0">
+                    <div *ngFor="let link of artist.links">
+                        <div *ngIf="link.type === 'spotify'">
+                            <a href="{{link.source}}" target="_blank"
+                               class="dashboard-fa-button entity-link"
+                               title="Listen to this artist on Spotify">
+                                <i class="fa-brands fa-spotify fa-2x"></i>
+                            </a>
+                        </div>
+                        <div *ngIf="link.type === 'discogs'">
+                            <a href="{{link.source}}" target="_blank"
+                               class="dashboard-fa-button entity-link"
+                               title="Go to this artist's Discogs page">
+                                <i class="fa-solid fa-compact-disc fa-2x"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--<div class="details-wrapper padding">
+        <div class="back-button-wrapper">
+            <a [routerLink]="['/artist']"
+               [queryParams]="{searchTerm: searchTerm}"
+               class="dashboard-fa-button"
+               title="Back to Search Results">
+                <i class="fa-solid fa-circle-left fa-2x"></i>
+            </a>
+        </div>
+
+        <div class="entity-name">
+            <h1>{{this.artist.name}}</h1>
+        </div>
+        <div class="details-unit">
+            <p>{{this.artist.artistType}}</p>
+            <p>{{this.artist.disambiguation}}</p>
+            <p class="small-details-unit">Origin: {{this.artist.city}}, {{this.artist.country}}</p>
+            <p>Established: {{this.artist.establishedYear}}</p>
+        </div>
+        <div class="details-unit">
+            <p>{{this.artist.wikiIntro}}</p>
+        </div>
+
+        <div *ngIf="artist.links.length > 0">
+            <h5 *ngIf="artist.links">Links</h5>
+            <div *ngFor="let link of artist.links">
+                <div *ngIf="link.type === 'spotify'">
+                    <a href="{{link.source}}" target="_blank"
+                       class="dashboard-fa-button"
+                       title="Listen to this artist on Spotify">
+                        <i class="fa-brands fa-spotify fa-2x"></i>
+                    </a>
+                </div>
+                <div *ngIf="link.type === 'discogs'">
+                    <a href="{{link.source}}" target="_blank"
+                       class="dashboard-fa-button"
+                       title="Go to this artist's Discogs page">
+                        <i class="fa-solid fa-compact-disc fa-2x"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>-->
+
+</ng-template>

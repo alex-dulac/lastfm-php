@@ -1,0 +1,28 @@
+.app-wrapper {
+    position: relative;
+    top: 0;
+    height: 100vh;
+    background: #112D4E;
+}
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 2;
+    width: 300px;
+    background: #3F72AF;
+    padding: 30px 15px;
+}
+
+.dashboard {
+    position: relative;
+    float: right;
+    width: calc(100% - 500px);
+    background: #DBE2EF;
+    margin-top: 50px;
+    margin-right: 100px;
+    padding: 30px 15px;
+    min-height: calc(100vh - 123px);
+}
