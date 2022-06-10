@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Libraries\MediaWiki;
+namespace App\Libraries\Wikipedia;
 
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Support\Facades\Http;

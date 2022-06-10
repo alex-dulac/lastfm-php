@@ -6,7 +6,7 @@ A PHP backend / Angular frontend application to lookup and pull data related to 
 
 - MusicBrainz (https://musicbrainz.org/doc/MusicBrainz_API)
 - MediaWiki (https://www.mediawiki.org/wiki/API:Main_page)
-- LastFm (https://www.last.fm/api) - <i>You will need your own API key to utilize this service</i>
+- LastFm (https://www.last.fm/api) - <i>You will need your own API key for this service</i>
 
 ## How To Use:
 

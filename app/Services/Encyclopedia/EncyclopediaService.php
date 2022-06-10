@@ -3,7 +3,7 @@
 namespace App\Services\Encyclopedia;
 
 use App\Libraries\LastFm\LastFmApi;
-use App\Libraries\MediaWiki\WikipediaApi;
+use App\Libraries\Wikipedia\WikipediaApi;
 use App\Libraries\Musicbrainz\MusicBrainzApi;
 use App\Services\Encyclopedia\Model\GetReleaseGroupRequest;
 use App\Services\Encyclopedia\Model\SearchReleaseGroupRequest;
