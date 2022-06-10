@@ -108,6 +108,8 @@ class WikipediaApi
             || str_contains($extract, 'rapper')
             || str_contains($extract, 'guitarist')
             || str_contains($extract, 'singer')
+            || str_contains($extract, 'duo')
+            || str_contains($extract, 'group')
             ) && !str_contains($extract, 'may refer to');
     }
 

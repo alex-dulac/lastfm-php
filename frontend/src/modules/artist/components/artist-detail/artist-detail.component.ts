@@ -41,7 +41,6 @@ export class ArtistDetailComponent implements OnInit {
             .pipe(finalize(() => this.loading = false))
             .subscribe(data => {
                     this.artist = data;
-                    console.log(this.artist);
                 },
                 err => {
                     this.errorMessage = err.message;

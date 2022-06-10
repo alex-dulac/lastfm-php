@@ -44,6 +44,94 @@ ul {
     height: 10px;
 }
 
+.artist-details {
+    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: 100px 200px 200px 100px;
+    grid-template-areas:"name name picture picture"
+                        "wiki wiki picture picture"
+                        "wiki wiki facts facts"
+                        "wiki wiki links links";
+}
+
+.artist-facts, .artist-wiki, .artist-links {
+    padding: 10px;
+    margin: 10px;
+    background-color: #eceff1;
+    color:#112D4E;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+
+
+.artist-name {
+    grid-area: name;
+    padding: 10px;
+    margin: 10px;
+    color:#112D4E;
+    text-align: center;
+}
+
+.artist-picture {
+    grid-area: picture;
+}
+
+.artist-image {
+    border-style: solid;
+    margin: 10px;
+}
+
+.artist-facts {
+    padding: 10px;
+    margin: 10px;
+    grid-area: facts;
+    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    grid-template-areas:"facts1 facts2"
+                        "facts3 facts4";
+}
+
+.facts-1 {
+    grid-area: facts1;
+}
+
+.facts-2 {
+    grid-area: facts2;
+}
+
+.facts-3 {
+    grid-area: facts3;
+}
+
+.facts-4 {
+    grid-area: facts4;
+}
+
+.last-fm {
+    margin-bottom: 0;
+}
+
+.artist-wiki {
+    grid-area: wiki;
+}
+
+.artist-links {
+    grid-area: links;
+}
+
+.entity-link {
+    float: left;
+    padding: 5px;
+    margin: 5px 10px;
+}
+
+.back-button-wrapper {
+    float: left;
+    position: absolute;
+}
+
 a.dashboard-fa-button {
     color: #112D4E;
     text-decoration: none;

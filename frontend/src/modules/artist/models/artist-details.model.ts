@@ -10,6 +10,10 @@ export class ArtistDetailsModel {
     links: Array<ArtistLinksModel> = [];
     wikiTitle: string;
     wikiIntro: string;
+    lastFmUrl: string;
+    lastFmListenerCount: string;
+    lastFmPlayCount: string;
+    onTour: boolean;
     establishedYear?: string;
     disbandedYear?: string;
     disbanded?: boolean;
