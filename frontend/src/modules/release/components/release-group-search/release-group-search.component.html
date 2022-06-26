@@ -1,0 +1,47 @@
+<div class="search-form padding">
+    <form [formGroup]="searchBox" (ngSubmit)="searchReleaseGroup()">
+        <label>
+            <input type="text" class="search-field" formControlName="releaseSearchTerm">
+            <button type="submit" class="button-search" [disabled]="!searchBox.valid">Search</button>
+        </label>
+    </form>
+</div>
+
+<div *ngIf="loading; else loaded" class="spinner-wrapper">
+    <div class="spinner">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</div>
+
+<ng-template #loaded>
+
+    <div class="results-wrapper padding">
+        <div *ngIf="searchResults === null">
+            <h5>No results.</h5>
+        </div>
+
+        <div *ngIf="searchResults && searchResults.length > 0">
+            <h5>Results for "{{ this.releaseSearchTerm }}":</h5>
+            <div class="search-results padding">
+                <div *ngFor="let result of searchResults">
+                    <p>
+                        <a class="search-result"
+                           [routerLink]="['release-group-details', result.releaseGroupId]"
+                           [queryParams]="{releaseSearchTerm: releaseSearchTerm}"
+                        >
+                        <span>
+                            {{ result.title }}<br>
+                            {{ result.artist.artistName}}<br>
+                            {{ result.releaseDate }}
+                        </span>
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</ng-template>

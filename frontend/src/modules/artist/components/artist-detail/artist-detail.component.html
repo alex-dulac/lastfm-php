@@ -11,8 +11,7 @@
     <div class="details-wrapper padding">
         <div class="artist-details">
             <div class="back-button-wrapper">
-                <a [routerLink]="['/artist']"
-                   [queryParams]="{searchTerm: searchTerm}"
+                <a (click)="back()"
                    class="dashboard-fa-button"
                    title="Back to Search Results">
                     <i class="fa-solid fa-circle-left fa-2x"></i>
@@ -83,49 +82,5 @@
             </div>
         </div>
     </div>
-
-    <!--<div class="details-wrapper padding">
-        <div class="back-button-wrapper">
-            <a [routerLink]="['/artist']"
-               [queryParams]="{searchTerm: searchTerm}"
-               class="dashboard-fa-button"
-               title="Back to Search Results">
-                <i class="fa-solid fa-circle-left fa-2x"></i>
-            </a>
-        </div>
-
-        <div class="entity-name">
-            <h1>{{this.artist.name}}</h1>
-        </div>
-        <div class="details-unit">
-            <p>{{this.artist.artistType}}</p>
-            <p>{{this.artist.disambiguation}}</p>
-            <p class="small-details-unit">Origin: {{this.artist.city}}, {{this.artist.country}}</p>
-            <p>Established: {{this.artist.establishedYear}}</p>
-        </div>
-        <div class="details-unit">
-            <p>{{this.artist.wikiIntro}}</p>
-        </div>
-
-        <div *ngIf="artist.links.length > 0">
-            <h5 *ngIf="artist.links">Links</h5>
-            <div *ngFor="let link of artist.links">
-                <div *ngIf="link.type === 'spotify'">
-                    <a href="{{link.source}}" target="_blank"
-                       class="dashboard-fa-button"
-                       title="Listen to this artist on Spotify">
-                        <i class="fa-brands fa-spotify fa-2x"></i>
-                    </a>
-                </div>
-                <div *ngIf="link.type === 'discogs'">
-                    <a href="{{link.source}}" target="_blank"
-                       class="dashboard-fa-button"
-                       title="Go to this artist's Discogs page">
-                        <i class="fa-solid fa-compact-disc fa-2x"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>-->
 
 </ng-template>

@@ -230,6 +230,7 @@ a.button-sidebar {
     color:#DBE2EF;
     text-align:center;
     transition: all 0.2s;
+    width: 180px;
 }
 a.button-sidebar:hover {
     color:#000000;

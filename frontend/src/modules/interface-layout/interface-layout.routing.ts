@@ -1,7 +1,8 @@
 import {Routes} from '@angular/router';
 import {HomeComponent} from "@modules/home/home.component";
 import {ArtistComponent} from "@modules/artist/artist.component";
-import {AlbumComponent} from "@modules/album/components/album.component";
+import {ReleaseComponent} from "@modules/release/release.component";
+import {TrackComponent} from "@modules/track/track.component";
 
 export const InterfaceLayoutRoutes: Routes = [
     {
@@ -17,8 +18,16 @@ export const InterfaceLayoutRoutes: Routes = [
         }]
     },
     {
-        path: 'album',
-        component: AlbumComponent
+        path: 'release',
+        component: ReleaseComponent,
+        children: [{
+            path: '',
+            loadChildren: () => import('@modules/release/release.module').then(m => m.ReleaseModule)
+        }]
+    },
+    {
+        path: 'track',
+        component: TrackComponent
     },
     {
         path: '**',

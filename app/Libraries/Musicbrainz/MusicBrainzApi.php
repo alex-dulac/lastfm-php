@@ -90,7 +90,8 @@ class MusicBrainzApi
         try {
             $response = Http::withHeaders($this->setDefaultHeaders())->get(
                 $this->baseUrl . self::RELEASE_GROUP_URL
-                . '/' . $searchTerm
+                . '?query=' . $searchTerm
+                . '&limit=' . self::LIMIT
             );
 
             if ($response->status() != 200) {
@@ -100,8 +101,8 @@ class MusicBrainzApi
 
             $responseContent = $response->json();
 
-            if (isset($responseContent['release_groups'])) {
-                return $responseContent['results']['albummatches'];
+            if (isset($responseContent['release-groups'])) {
+                return $responseContent['release-groups'];
             }
 
             return false;
@@ -120,13 +121,10 @@ class MusicBrainzApi
     public function getReleaseGroup(string $releaseGroupId): mixed
     {
         try {
-
-            $response = Http::get(
+            $response = Http::withHeaders($this->setDefaultHeaders())->get(
                 $this->baseUrl . self::RELEASE_GROUP_URL
-                . '&api_key=' . $this->apiKey
-                . '&artist=' . $artistName
-                . '&album=' . $albumName
-                . '&format=json'
+                . '/' . $releaseGroupId
+                . '?inc=releases+artist-credits'
             );
 
             if ($response->status() != 200) {
@@ -136,16 +134,11 @@ class MusicBrainzApi
 
             $responseContent = $response->json();
 
-            if (isset($responseContent['album'])) {
-                return $responseContent['album'];
-            }
-
             if (isset($responseContent['error'])) {
-                Log::error('An error occurred getting info for album: " ' . $albumName . ' " by artist: " ' . $artistName . ' ". Error code: ' . $responseContent['error']);
                 return false;
             }
 
-            return false;
+            return $responseContent;
 
         } catch (HttpResponseException $exception) {
             $statusCode = $exception->getResponse()->getStatusCode();

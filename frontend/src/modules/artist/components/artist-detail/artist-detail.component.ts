@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {finalize} from "rxjs";
 import {EncyclopediaService} from "@services/encyclopedia.service";
 import {ArtistDetailsModel} from "@modules/artist/models/artist-details.model";
@@ -13,13 +13,13 @@ export class ArtistDetailComponent implements OnInit {
 
     loading: boolean;
     errorMessage: string = 'An error has occurred. Please try again.';
-    searchTerm: string;
-    searchResultsView: string;
+    artistSearchTerm: string;
     artistId: string;
     artist: ArtistDetailsModel;
 
     constructor(
         private route: ActivatedRoute,
+        private router: Router,
         private encyclopediaService: EncyclopediaService,
     ) {
     }
@@ -28,9 +28,22 @@ export class ArtistDetailComponent implements OnInit {
         this.route.params.subscribe(params => {
             this.artistId = params['artistId'];
         });
+
         this.route.queryParams.subscribe(queryParams => {
-            this.searchTerm = queryParams['searchTerm'];
+            if (queryParams['artistSearchTerm']) {
+                this.artistSearchTerm = queryParams['artistSearchTerm'];
+                sessionStorage.setItem('artistSearchTerm', this.artistSearchTerm);
+
+                // Remove query params so it's not displayed in the URL
+                this.router.navigate([], {
+                    queryParams: {
+                        'artistSearchTerm': null
+                    },
+                    queryParamsHandling: 'merge'
+                });
+            }
         });
+        sessionStorage.setItem('artistId', this.artistId);
         this.getArtist(this.artistId);
     }
 
@@ -47,5 +60,12 @@ export class ArtistDetailComponent implements OnInit {
                 });
     }
 
-
+    back() {
+        sessionStorage.setItem('artistId', '');
+        this.router.navigate(['artist'], {
+            queryParams: {
+                'artistSearchTerm': this.artistSearchTerm
+            },
+        });
+    }
 }

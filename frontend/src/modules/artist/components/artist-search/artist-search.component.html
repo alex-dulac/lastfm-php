@@ -1,7 +1,7 @@
 <div class="search-form padding">
     <form [formGroup]="searchBox" (ngSubmit)="searchArtist()">
         <label>
-            <input type="text" class="search-field" formControlName="searchTerm" placeholder="Enter a search term">
+            <input type="text" class="search-field" formControlName="artistSearchTerm">
             <button type="submit" class="button-search" [disabled]="!searchBox.valid">Search</button>
         </label>
     </form>
@@ -24,11 +24,14 @@
     </div>
 
     <div *ngIf="searchResults && searchResults.length > 0">
-        <h5>Results for "{{ this.searchTerm }}":</h5>
+        <h5>Results for "{{ this.artistSearchTerm }}":</h5>
         <div class="search-results padding">
             <div *ngFor="let result of searchResults">
                 <p>
-                    <a class="search-result" [routerLink]="['details', result.id]" [queryParams]="{searchTerm: searchTerm}">
+                    <a class="search-result"
+                       [routerLink]="['details', result.id]"
+                       [queryParams]="{artistSearchTerm: artistSearchTerm}"
+                    >
                         <span>
                             {{ result.name }}<br>
                             {{ result.country }}

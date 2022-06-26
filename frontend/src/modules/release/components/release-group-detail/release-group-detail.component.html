@@ -1,0 +1,50 @@
+<div *ngIf="loading; else loaded" class="spinner-wrapper">
+    <div class="spinner">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</div>
+
+<ng-template #loaded>
+    <div class="details-wrapper padding">
+        <div class="artist-details">
+            <div class="back-button-wrapper">
+                <a (click)="back()"
+                   class="dashboard-fa-button"
+                   title="Back to Search Results">
+                    <i class="fa-solid fa-circle-left fa-2x"></i>
+                </a>
+            </div>
+
+            <div class="artist-name">
+                <h1>Hi</h1>
+            </div>
+            <div class="artist-picture">
+
+            </div>
+            <div class="artist-facts">
+                <div class="facts-1">
+                    Test1
+                </div>
+                <div class="facts-2">
+                    Test2
+                </div>
+                <div class="facts-3">
+                    Test3
+                </div>
+                <div class="facts-4">
+                    Test4
+                </div>
+            </div>
+            <div class="artist-wiki">
+                <p>Hello Hello</p>
+            </div>
+            <div class="artist-links">
+                <
+            </div>
+        </div>
+    </div>
+
+</ng-template>

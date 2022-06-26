@@ -31,4 +31,20 @@ export class EncyclopediaService {
         return this.http.get<any>(this.baseUrl + '/Encyclopedia/getArtist', {params: params});
     }
 
+    searchReleaseGroup(searchTerm: string): Observable<any> {
+        let params = new HttpParams();
+
+        params = params.set('searchTerm', searchTerm);
+
+        return this.http.get<any>(this.baseUrl + '/Encyclopedia/searchReleaseGroup', {params: params});
+    }
+
+    getReleaseGroup(releaseGroupId: string): Observable<any> {
+        let params = new HttpParams();
+
+        params = params.set('releaseGroupId', releaseGroupId);
+
+        return this.http.get<any>(this.baseUrl + '/Encyclopedia/getReleaseGroup', {params: params});
+    }
+
 }

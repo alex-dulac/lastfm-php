@@ -12,12 +12,10 @@ import {FormBuilder, Validators} from "@angular/forms";
 export class ArtistSearchComponent implements OnInit {
 
     loading: boolean;
-    searchTerm: string;
+    artistSearchTerm: string;
     errorMessage: string = '';
 
-    searchBox = this.formBuilder.group({
-        searchTerm: '',
-    });
+    searchBox = this.formBuilder.group({});
 
     searchResults = [];
 
@@ -30,32 +28,40 @@ export class ArtistSearchComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.route.queryParams.subscribe(queryParams => {
-            if (queryParams['searchTerm']) {
-                this.searchTerm = queryParams['searchTerm'];
-                this.searchArtist(true);
+        if (sessionStorage.getItem('artistId')) {
+            this.router.navigate(['artist/details/', sessionStorage.getItem('artistId')])
+        }
 
-                // Remove query params so it's no longer in the URL
-                this.router.navigate([], {
-                    queryParams: {
-                        'searchTerm': null
-                    },
-                    queryParamsHandling: 'merge'
-                })
-            }
-        });
+        if (!this.artistSearchTerm && sessionStorage.getItem('artistSearchTerm')) {
+            this.artistSearchTerm = sessionStorage.getItem('artistSearchTerm');
+
+            // pre-populate the search box with the term since we have it.
+            this.searchBox = this.formBuilder.group({
+                artistSearchTerm: this.artistSearchTerm,
+            });
+
+            this.searchArtist(true);
+        } else {
+            this.searchBox = this.formBuilder.group({
+                artistSearchTerm: '',
+            });
+        }
     }
 
-    searchArtist(navigatedSearch?: boolean): void {
+    searchArtist(hasPreviousSearch?: boolean): void {
         this.loading = true;
         this.searchResults = [];
-        this.searchTerm = navigatedSearch ? this.searchTerm : this.searchBox.value.searchTerm;
+        // if it was a navigated search, then we should already have a searchTerm in their local storage
+        this.artistSearchTerm = hasPreviousSearch ? this.artistSearchTerm : this.searchBox.value.artistSearchTerm;
 
-        if (this.searchTerm === '') {
+        if (this.artistSearchTerm === '' || this.artistSearchTerm === 'undefined') {
+            this.artistSearchTerm = ''; // this is just to overwrite 'undefined' if that is the case
+            sessionStorage.setItem('artistSearchTerm', '');
+            this.loading = false;
             return;
         }
 
-        this.encyclopediaService.searchArtist(this.searchTerm)
+        this.encyclopediaService.searchArtist(this.artistSearchTerm)
             .pipe(finalize(() => this.loading = false))
             .subscribe(data => {
                     this.searchResults = data;

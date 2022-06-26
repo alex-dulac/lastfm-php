@@ -6,14 +6,9 @@ class SearchReleaseGroupSerializer
 {
     public function serialize(array $searchResults)
     {
-        if ($searchResults['count'] === 0) {
-            return false;
-        }
-
-        $artists = [];
         $releaseGroups = [];
 
-        foreach ($searchResults['artists'] as $searchResult) {
+        foreach ($searchResults as $searchResult) {
             $tags = [];
             if (isset($searchResult['tags'])) {
                 foreach ($searchResult['tags'] as $tag) {
@@ -21,17 +16,34 @@ class SearchReleaseGroupSerializer
                 }
             }
 
-            $artists[] = [
-                'id' => $searchResult['id'],
-                'name' => $searchResult['name'],
-                'country' => $searchResult['country'] ?? '',
-                'establishedYear' => $searchResult['life-span']['begin'] ?? null,
-                'disbandedYear' => $searchResult['life-span']['ended'] ?? null,
+            $artist = [];
+            $artistCredit = current($searchResult['artist-credit']);
+            $artist['artistName'] = $artistCredit['name'];
+            $artist['artistId'] = $artistCredit['artist']['id'];
+
+            $releases = [];
+            if (isset($searchResult['releases'])) {
+                foreach ($searchResult['releases'] as $release) {
+                    $releases[] = [
+                        'releaseId' => $release['id'],
+                        'title' => $release['title'],
+                        'status' => $release['status'] ?? ''
+                    ];
+                }
+            }
+
+            $releaseGroups[] = [
+                'releaseGroupId' => $searchResult['id'],
+                'title' => $searchResult['title'],
+                'releaseDate' => $searchResult['first-release-date'] ?? null,
+                'type' => $searchResult['primary-type'] ?? '',
+                'artist' => $artist,
+                'releases' => $releases,
                 'tags' => $tags
             ];
         }
 
-        return $artists;
+        return $releaseGroups;
     }
 
 }

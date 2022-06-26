@@ -30,7 +30,7 @@ class EncyclopediaController extends Controller
         return $this->getSearchReleaseGroupSerializer()->serialize($data);
     }
 
-    public function getRelease(Request $request)
+    public function getReleaseGroup(Request $request)
     {
         $parameters = $this->getGetReleaseGroupRequestFactory()->parseRequest($request);
         return $this->getEncyclopediaService()->getReleaseGroup($parameters);

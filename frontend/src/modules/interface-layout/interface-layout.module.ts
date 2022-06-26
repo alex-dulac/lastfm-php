@@ -4,7 +4,8 @@ import {CommonModule} from '@angular/common';
 import {InterfaceLayoutRoutes} from "@modules/interface-layout/interface-layout.routing";
 import {ArtistComponent} from "@modules/artist/artist.component";
 import {HomeComponent} from "@modules/home/home.component";
-import {AlbumComponent} from "@modules/album/components/album.component";
+import {ReleaseComponent} from "@modules/release/release.component";
+import {TrackComponent} from "@modules/track/track.component";
 
 @NgModule({
     imports: [
@@ -14,7 +15,8 @@ import {AlbumComponent} from "@modules/album/components/album.component";
     declarations: [
         HomeComponent,
         ArtistComponent,
-        AlbumComponent
+        ReleaseComponent,
+        TrackComponent
     ]
 })
 
