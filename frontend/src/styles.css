@@ -7,8 +7,13 @@ h1, h2, h3, h4, h5, p, span, li, a {
 }
 
 .logo {
-    height: 700px;
-    width: 700px;
+    height: 500px;
+    width: 500px;
+}
+
+.logo-2 {
+    height: 100px;
+    width: 100px;
 }
 
 ul {
@@ -124,6 +129,16 @@ ul {
 
 .artist-links {
     grid-area: links;
+}
+
+.release-group-details {
+    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.release-group-column {
+    width: 375px;
 }
 
 .entity-link {
@@ -249,9 +264,8 @@ a.button-sidebar:hover {
 }
 
 .spinner-wrapper {
-    margin-top: 250px;
-    width: 725px;
-    float: right;
+    margin-top: 325px;
+    margin-left: 560px;
 }
 
 /* Spinner source: https://loading.io/css/ */
