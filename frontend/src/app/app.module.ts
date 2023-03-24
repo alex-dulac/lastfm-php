@@ -5,6 +5,7 @@ import {AppComponent} from './app.component';
 import {AppRoutingModule} from './app-routing.module';
 import {SidebarComponent} from '@modules/sidebar/sidebar.component';
 import {InterfaceLayoutComponent} from '@modules/interface-layout/interface-layout.component';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
     declarations: [
@@ -15,7 +16,8 @@ import {InterfaceLayoutComponent} from '@modules/interface-layout/interface-layo
     imports: [
         BrowserModule,
         HttpClientModule,
-        AppRoutingModule
+        AppRoutingModule,
+        NoopAnimationsModule
     ],
     providers: [],
     bootstrap: [AppComponent]

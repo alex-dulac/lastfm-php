@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {finalize} from "rxjs";
-import {EncyclopediaService} from "@services/encyclopedia.service";
+import {EncyclopediaService} from "@services/api/encyclopedia.service";
 import {ArtistDetailsModel} from "@modules/artist/models/artist-details.model";
 
 @Component({

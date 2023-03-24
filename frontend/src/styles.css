@@ -1,3 +1,32 @@
+.app-wrapper {
+    position: relative;
+    top: 0;
+    height: 100vh;
+    background: #112D4E;
+}
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 2;
+    width: 300px;
+    background: #3F72AF;
+    padding: 30px 15px;
+}
+
+.dashboard {
+    position: relative;
+    float: right;
+    width: calc(100% - 500px);
+    background: #DBE2EF;
+    margin-top: 50px;
+    margin-right: 100px;
+    padding: 30px 15px;
+    min-height: calc(100vh - 123px);
+}
+
 .padding {
     padding: 20px;
 }
@@ -174,7 +203,7 @@ a.dashboard-fa-button:hover {
     justify-content: center;
     align-items: stretch;
     margin: 20px;
-    grid-template-rows:    repeat(3, 125px);
+    grid-template-rows:    repeat(3, 200px);
     grid-template-columns: repeat(3, 1fr);
 }
 
@@ -305,4 +334,3 @@ a.button-sidebar:hover {
         transform: rotate(360deg);
     }
 }
-

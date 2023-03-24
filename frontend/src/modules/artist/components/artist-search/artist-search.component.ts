@@ -1,8 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {EncyclopediaService} from "@services/encyclopedia.service";
+import {EncyclopediaService} from "@services/api/encyclopedia.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {finalize} from "rxjs";
 import {FormBuilder, Validators} from "@angular/forms";
+import {ArtistSearchResult} from "@modules/artist/models/artist-search-result.model";
 
 @Component({
     selector: 'app-artist-search',
@@ -17,7 +18,7 @@ export class ArtistSearchComponent implements OnInit {
 
     searchBox = this.formBuilder.group({});
 
-    searchResults = [];
+    searchResults: ArtistSearchResult[];
 
     constructor(
         private encyclopediaService: EncyclopediaService,

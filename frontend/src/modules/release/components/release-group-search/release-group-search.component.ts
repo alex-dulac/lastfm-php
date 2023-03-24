@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {EncyclopediaService} from "@services/encyclopedia.service";
+import {EncyclopediaService} from "@services/api/encyclopedia.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {FormBuilder} from "@angular/forms";
 import {finalize} from "rxjs";

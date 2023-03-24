@@ -1,0 +1,9 @@
+.testing {
+    display: flex;
+    flex-direction: row; // fxLayout
+    flex-wrap: wrap; //fxLayout
+    box-sizing: border-box;
+    align-content: stretch; // fxLayoutAlign
+    align-items: stretch; // fxLayoutAlign
+    justify-content: flex-start; // fxLayoutAlign
+}

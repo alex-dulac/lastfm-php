@@ -32,15 +32,18 @@ class SearchReleaseGroupSerializer
                 }
             }
 
-            $releaseGroups[] = [
-                'releaseGroupId' => $searchResult['id'],
-                'title' => $searchResult['title'],
-                'releaseDate' => $searchResult['first-release-date'] ?? null,
-                'type' => $searchResult['primary-type'] ?? '',
-                'artist' => $artist,
-                'releases' => $releases,
-                'tags' => $tags
-            ];
+            if (isset($searchResult['first-release-date'])) {
+                // it's not really worth showing if there is no release date
+                $releaseGroups[] = [
+                    'releaseGroupId' => $searchResult['id'],
+                    'title' => $searchResult['title'],
+                    'releaseDate' => $searchResult['first-release-date'] ?? null,
+                    'type' => $searchResult['primary-type'] ?? '',
+                    'artist' => $artist,
+                    'releases' => $releases,
+                    'tags' => $tags
+                ];
+            }
         }
 
         return $releaseGroups;

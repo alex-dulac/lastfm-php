@@ -1,19 +1,18 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 
 declare interface RouteInfo {
     path: string;
     title: string;
-    icon: string;
-    class: string;
+    singular?: string;
 }
 
 export const ROUTES: RouteInfo[] = [
-    {path: '/home', title: 'Home', icon: 'dashboard', class: ''},
-    {path: '/artist', title: 'Artists', icon: 'person', class: ''},
-    { path: '/release', title: 'Releases',  icon:'content_paste', class: '' },
-    { path: '/track', title: 'Tracks',  icon:'library_books', class: '' }, // recordings
-    { path: '/label', title: 'Labels',  icon:'library_books', class: '' },
-    { path: '/venue', title: 'Venues',  icon:'library_books', class: '' }, // places
+    { path: '/home', title: 'Home' },
+    { path: '/artist', title: 'Artists' , singular: 'artist'},
+    { path: '/release', title: 'Releases', singular: 'release' },
+    { path: '/track', title: 'Tracks', singular: 'track'}, // recordings
+    { path: '/label', title: 'Labels', singular: 'label' },
+    { path: '/venue', title: 'Venues', singular: 'venue' }, // places
 
 ];
 
@@ -23,7 +22,7 @@ export const ROUTES: RouteInfo[] = [
     styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent implements OnInit {
-    sidebarLinks: any = [];
+    sidebarLinks: RouteInfo[];
 
     constructor() {
     }
@@ -31,5 +30,6 @@ export class SidebarComponent implements OnInit {
     ngOnInit() {
         this.sidebarLinks = ROUTES.filter(sidebarLink => sidebarLink);
     }
+
 
 }

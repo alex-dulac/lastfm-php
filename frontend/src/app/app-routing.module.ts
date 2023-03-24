@@ -5,11 +5,6 @@ import {InterfaceLayoutComponent} from "@modules/interface-layout/interface-layo
 const routes: Routes = [
     {
         path: '',
-        redirectTo: 'home',
-        pathMatch: 'full'
-    },
-    {
-        path: '',
         component: InterfaceLayoutComponent,
         children: [{
             path: '',

@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
-import {EncyclopediaService} from "@services/encyclopedia.service";
+import {EncyclopediaService} from "@services/api/encyclopedia.service";
 import {finalize} from "rxjs";
 
 @Component({

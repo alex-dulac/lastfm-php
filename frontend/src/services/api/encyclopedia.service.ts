@@ -15,9 +15,8 @@ export class EncyclopediaService {
     ) {
     }
 
-    searchArtist(searchTerm: string): Observable<[artists: ArtistSearchResult[]]> {
+    searchArtist(searchTerm: string): Observable<ArtistSearchResult[]> {
         let params = new HttpParams();
-
         params = params.set('searchTerm', searchTerm);
 
         return this.http.get<any>(this.baseUrl + '/Encyclopedia/searchArtist', {params: params});
@@ -25,7 +24,6 @@ export class EncyclopediaService {
 
     getArtist(artistId: string): Observable<any> {
         let params = new HttpParams();
-
         params = params.set('artistId', artistId);
 
         return this.http.get<any>(this.baseUrl + '/Encyclopedia/getArtist', {params: params});
@@ -33,7 +31,6 @@ export class EncyclopediaService {
 
     searchReleaseGroup(searchTerm: string): Observable<any> {
         let params = new HttpParams();
-
         params = params.set('searchTerm', searchTerm);
 
         return this.http.get<any>(this.baseUrl + '/Encyclopedia/searchReleaseGroup', {params: params});
@@ -41,7 +38,6 @@ export class EncyclopediaService {
 
     getReleaseGroup(releaseGroupId: string): Observable<any> {
         let params = new HttpParams();
-
         params = params.set('releaseGroupId', releaseGroupId);
 
         return this.http.get<any>(this.baseUrl + '/Encyclopedia/getReleaseGroup', {params: params});
