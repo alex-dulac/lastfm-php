@@ -1,16 +1,16 @@
 import {Component, OnInit} from '@angular/core';
 import {
-    EntityType,
-    TYPE_ARTIST,
-    TYPE_HOME,
-    TYPE_LABELS,
-    TYPE_RELEASES,
-    TYPE_TRACKS,
-    TYPE_VENUES
-} from "../common/entity-type.type";
-import {StorageService} from "@services/storage.service";
-import {fromEvent, Observable} from "rxjs";
-import {NgxsOnChanges, NgxsSimpleChange, Store} from "@ngxs/store";
+    AppTab,
+    TAB_ARTISTS,
+    TAB_HOME,
+    TAB_LABELS,
+    TAB_RELEASES,
+    TAB_TRACKS,
+    TAB_VENUES
+} from "../shared/app-tab.type";
+import {Observable} from "rxjs";
+import {Select} from "@ngxs/store";
+import {AppState} from "../shared/app.state";
 
 @Component({
     selector: 'app-root',
@@ -19,34 +19,23 @@ import {NgxsOnChanges, NgxsSimpleChange, Store} from "@ngxs/store";
 })
 export class AppComponent implements OnInit {
 
-    home: EntityType = TYPE_HOME;
-    artist: EntityType = TYPE_ARTIST;
-    releases: EntityType = TYPE_RELEASES;
-    tracks: EntityType = TYPE_TRACKS;
-    labels: EntityType = TYPE_LABELS;
-    venues: EntityType = TYPE_VENUES;
+    activeTab: AppTab;
+    home: AppTab = TAB_HOME;
+    artist: AppTab = TAB_ARTISTS;
+    releases: AppTab = TAB_RELEASES;
+    tracks: AppTab = TAB_TRACKS;
+    labels: AppTab = TAB_LABELS;
+    venues: AppTab = TAB_VENUES;
 
-    activeEntityType: EntityType;
+    @Select(AppState.getActiveTab) currentTab$: Observable<AppTab>;
 
-    source$: Observable<Event>;
-
-    constructor(
-        private storageService: StorageService,
-        //private store: Store
-    ) {
+    constructor() {
     }
 
     ngOnInit() {
-        this.activeEntityType = this.storageService.getLocalStorageValue(StorageService.ACTIVE_ENTITY_TYPE_ITEM) ?? this.home;
-
-        /*this.source$ = fromEvent(window, 'storage');
-        this.source$.pipe().subscribe(
-            data => {
-
-            }
-        )*/
+        this.currentTab$.subscribe(tab => {
+            this.activeTab = tab;
+        })
     }
-
-
 
 }

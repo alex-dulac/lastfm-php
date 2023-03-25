@@ -1,5 +1,4 @@
 import {NgModule} from '@angular/core';
-import {BrowserModule} from '@angular/platform-browser';
 import {HttpClientModule} from "@angular/common/http";
 import {AppComponent} from './app.component';
 import {SidebarComponent} from '@modules/sidebar/sidebar.component';
@@ -13,6 +12,8 @@ import {CommonModule} from "@angular/common";
 import {ReactiveFormsModule} from "@angular/forms";
 import {MatCardModule} from "@angular/material/card";
 import {MatButtonModule} from "@angular/material/button";
+import {NgxsModule} from "@ngxs/store";
+import {AppState} from "../shared/app.state";
 
 
 @NgModule({
@@ -31,6 +32,7 @@ import {MatButtonModule} from "@angular/material/button";
         ReactiveFormsModule,
         MatCardModule,
         MatButtonModule,
+        NgxsModule.forRoot([AppState]),
         // AppRoutingModule
     ],
     providers: [],

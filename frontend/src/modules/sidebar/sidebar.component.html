@@ -7,7 +7,8 @@
 <div class="sidebar-wrapper">
     <ul class="sidebar-nav">
         <li *ngFor="let sidebarLink of sidebarLinks" class="nav-item">
-            <a class="button-sidebar" (click)="changeEntityType(sidebarLink.type)">
+            <a class="button-sidebar" (click)="changeActiveTab(sidebarLink.type)"
+               [ngClass]="sidebarLink.type === activeTab ? 'active-tab' : ''">
                 <span>{{ sidebarLink.title }}</span>
             </a>
         </li>

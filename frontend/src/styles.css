@@ -272,6 +272,11 @@ a.button-sidebar:hover {
     color:#000000;
     background-color:#DBE2EF;
 }
+
+.active-tab {
+    background-color:#DBE2EF;
+}
+
 @media all and (max-width:30em) {
     a.button-sidebar{
         display:block;

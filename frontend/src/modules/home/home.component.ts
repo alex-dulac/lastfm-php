@@ -1,4 +1,8 @@
 import {Component, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {Select} from "@ngxs/store";
+import {AppState} from "../../shared/app.state";
+import {Observable} from "rxjs";
+import {AppTab} from "../../shared/app-tab.type";
 
 @Component({
     selector: 'app-home',
@@ -7,15 +11,16 @@ import {Component, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-    currentArtistId: string;
+    @Select(AppState.getArtistId) currentArtistId$: Observable<string>;
+    activeArtistId: string;
 
     constructor() {
     }
 
     ngOnInit(): void {
-        if (sessionStorage.getItem('artistId')) {
-            this.currentArtistId = sessionStorage.getItem('artistId');
-        }
+        this.currentArtistId$.subscribe(data => {
+            this.activeArtistId = data;
+        })
     }
 
 }

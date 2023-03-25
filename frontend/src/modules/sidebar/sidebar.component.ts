@@ -1,27 +1,30 @@
 import {Component, OnInit} from '@angular/core';
-import {StorageService} from "@services/storage.service";
 import {
-    EntityType,
-    TYPE_ARTIST,
-    TYPE_HOME,
-    TYPE_LABELS,
-    TYPE_RELEASES,
-    TYPE_TRACKS, TYPE_VENUES
-} from "../../common/entity-type.type";
+    AppTab,
+    TAB_ARTISTS,
+    TAB_HOME,
+    TAB_LABELS,
+    TAB_RELEASES,
+    TAB_TRACKS, TAB_VENUES
+} from "../../shared/app-tab.type";
+import {Select, Store} from "@ngxs/store";
+import {ResetState, SetActiveTab} from "../../shared/app.actions";
+import {AppState} from "../../shared/app.state";
+import {Observable} from "rxjs";
 
 declare interface SidebarLink {
-    type: EntityType;
+    type: AppTab;
     title: string;
     singular?: string;
 }
 
 export const ROUTES: SidebarLink[] = [
-    { type: TYPE_HOME, title: 'Home' },
-    { type: TYPE_ARTIST, title: 'Artist' },
-    { type: TYPE_RELEASES, title: 'Releases' },
-    { type: TYPE_TRACKS, title: 'Tracks' }, // recordings
-    { type: TYPE_LABELS, title: 'Labels' },
-    { type: TYPE_VENUES, title: 'Venues' }, // places
+    { type: TAB_HOME, title: 'Home' },
+    { type: TAB_ARTISTS, title: 'Artists', singular: 'artist' },
+    { type: TAB_RELEASES, title: 'Releases', singular: 'release'  },
+    { type: TAB_TRACKS, title: 'Tracks', singular: 'track'  }, // recordings
+    { type: TAB_LABELS, title: 'Labels', singular: 'label'  },
+    { type: TAB_VENUES, title: 'Venues', singular: 'venue'  }, // places
 
 ];
 
@@ -32,19 +35,24 @@ export const ROUTES: SidebarLink[] = [
 })
 export class SidebarComponent implements OnInit {
     sidebarLinks: SidebarLink[];
+    activeTab: AppTab;
+    @Select(AppState.getActiveTab) currentTab$: Observable<AppTab>;
 
-    constructor(private storageService: StorageService) {
+    constructor(private store: Store) {
     }
 
     ngOnInit() {
         this.sidebarLinks = ROUTES.filter(sidebarLink => sidebarLink);
+        this.currentTab$.subscribe(tab => {
+            this.activeTab = tab;
+        })
     }
 
-    changeEntityType(entityType: EntityType) {
-        this.storageService.setLocalStorageValue(StorageService.ACTIVE_ENTITY_TYPE_ITEM, entityType)
+    changeActiveTab(tab: AppTab) {
+        this.store.dispatch(new SetActiveTab(tab));
     }
 
     clearStorage(): void {
-        this.storageService.clearStorage();
+        this.store.dispatch(new ResetState());
     }
 }
