@@ -6,11 +6,14 @@
 
 <div class="sidebar-wrapper">
     <ul class="sidebar-nav">
-        <li routerLinkActive="active"
-            *ngFor="let sidebarLink of sidebarLinks"
-            class="nav-item">
-            <a class="button-sidebar" [routerLink]="[sidebarLink.path]">
+        <li *ngFor="let sidebarLink of sidebarLinks" class="nav-item">
+            <a class="button-sidebar" (click)="changeEntityType(sidebarLink.type)">
                 <span>{{ sidebarLink.title }}</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="button-sidebar" (click)="clearStorage()">
+                <span>Reset History</span>
             </a>
         </li>
     </ul>

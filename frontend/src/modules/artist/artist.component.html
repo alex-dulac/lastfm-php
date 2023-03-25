@@ -3,7 +3,144 @@
         <h2><i class="fa-solid fa-microphone-lines"></i> Artists</h2>
     </div>
     <hr>
-    <div>
-        <router-outlet></router-outlet>
-    </div>
+
+    <ng-container *ngIf="artistId else search">
+        <div *ngIf="artistLoading; else artistLoaded" class="spinner-wrapper">
+            <div class="spinner">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+
+        <ng-template #artistLoaded>
+            <section *ngIf="artist$ | async as artist">
+                <div class="details-wrapper padding">
+                    <div class="artist-details">
+                        <div class="back-button-wrapper">
+                            <a (click)="back()"
+                               class="dashboard-fa-button"
+                               title="Back to Search Results">
+                                <i class="fa-solid fa-circle-left fa-2x"></i>
+                            </a>
+                        </div>
+
+                        <div class="artist-name">
+                            <h1>{{artist.name}}</h1>
+                        </div>
+                        <div class="artist-picture">
+                            <div *ngIf="artist.links.length > 0">
+                                <div *ngFor="let link of artist.links">
+                                    <div *ngIf="link.type === 'image'">
+                                        <img class="artist-image" src="{{link.source}}">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="artist-facts">
+                            <div class="facts-1">
+                                <span>Artist type: {{artist.artistType}}</span>
+                                <br>
+                                <span>{{artist.disambiguation}}</span>
+                            </div>
+                            <div class="facts-2">
+                                <span>Origin: {{artist.city}}, {{artist.country}}</span>
+                                <br>
+                                <span>{{artist.establishedYear}} - {{artist.disbandedYear}}</span>
+                            </div>
+                            <div class="facts-3">
+                                <div *ngIf="artist.onTour === true">
+                                    <p>{{artist.name}} is currently on tour!</p>
+                                </div>
+                                <div *ngIf="artist.onTour === false">
+                                    <p>{{artist.name}} is currently not touring.</p>
+                                </div>
+                            </div>
+                            <div class="facts-4">
+                                <p class="last-fm"><a href="{{artist.lastFmUrl}}" target="_blank">LastFm</a> stats:</p>
+                                <ul>
+                                    <li>Listeners: {{artist.lastFmListenerCount}}</li>
+                                    <li>Plays: {{artist.lastFmPlayCount}}</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="artist-wiki">
+                            <p>{{artist.wikiIntro}}</p>
+                        </div>
+                        <div class="artist-links">
+                            <div *ngIf="artist.links.length > 0">
+                                <div *ngFor="let link of artist.links">
+                                    <div *ngIf="link.type === 'spotify'">
+                                        <a href="{{link.source}}" target="_blank"
+                                           class="dashboard-fa-button entity-link"
+                                           title="Listen to this artist on Spotify">
+                                            <i class="fa-brands fa-spotify fa-2x"></i>
+                                        </a>
+                                    </div>
+                                    <div *ngIf="link.type === 'discogs'">
+                                        <a href="{{link.source}}" target="_blank"
+                                           class="dashboard-fa-button entity-link"
+                                           title="Go to this artist's Discogs page">
+                                            <i class="fa-solid fa-compact-disc fa-2x"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </ng-template>
+    </ng-container>
+
+    <ng-template #search>
+        <h1>Artist Search</h1>
+        <div class="search-form padding">
+            <form [formGroup]="searchBox" (ngSubmit)="searchArtist()">
+                <label>
+                    <input type="text" class="search-field" formControlName="artistSearchTerm">
+                    <button type="submit" class="button-search" [disabled]="!searchBox.valid">Search</button>
+                </label>
+            </form>
+        </div>
+
+        <div *ngIf="searchLoading; else searchLoaded" class="spinner-wrapper">
+            <div class="spinner">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+
+        <ng-template #searchLoaded>
+            <section *ngIf="searchResults$ | async as searchResults">
+                <div class="results-wrapper padding">
+                    <div *ngIf="searchResults.length > 0">
+                        <h5>Results for "{{ this.artistSearchTerm }}":</h5>
+                        <div class="testing">
+                            <div *ngFor="let result of searchResults">
+                                <mat-card class="mat-elevation-z4">
+                                    <mat-card-header>
+                                        <mat-card-title> {{result.name}} </mat-card-title>
+                                    </mat-card-header>
+                                    <mat-card-content>
+                                        <p>{{result.name}}</p>
+                                        <p>{{result.country}}</p>
+                                        <p>{{result.establishedYear}}</p>
+                                    </mat-card-content>
+                                    <mat-card-actions>
+                                        <button mat-button (click)="viewArtist(result.id)">VIEW</button>
+                                    </mat-card-actions>
+                                </mat-card>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </ng-template>
+
+    </ng-template>
+
 </div>

@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {StorageService} from "@services/storage.service";
 
 @Component({
     selector: 'app-release',
@@ -7,10 +8,16 @@ import {Component, OnInit} from '@angular/core';
 })
 export class ReleaseComponent implements OnInit {
 
-    constructor() {
+    releaseGroupId: string;
+
+    constructor(private storageService: StorageService) {
     }
 
-    ngOnInit(): void {
+    ngOnInit() {
+        this.releaseGroupId = this.storageService.getLocalStorageValue(StorageService.RELEASE_GROUP_ID_ITEM);
+        if (this.releaseGroupId) {
+
+        }
     }
 
 }
