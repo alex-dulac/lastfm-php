@@ -1,16 +1,37 @@
+html,body {
+    height: 100%;
+}
+
+.testing {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    box-sizing: border-box;
+    align-content: stretch;
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: 5px;
+}
+
+.wrapper {
+    height: auto;
+    min-height: 100%;
+}
+
 .sidebar {
     position: fixed;
-    min-height: 100%;
-    left: 0;
+    min-height: 988px;
+    float: left;
     width: 300px;
     background: #3F72AF;
     padding: 30px 15px;
 }
 
 .dashboard {
+    height: auto;
+    min-height: 988px;
     background: #DBE2EF;
     margin-left: 300px;
-    min-height: 988px;
     padding: 30px 15px;
 }
 
@@ -47,8 +68,8 @@ ul {
 }
 
 .details-wrapper {
+    height: auto;
     position: absolute;
-    height: 680px;
     margin: 10px;
     text-align: center;
     overflow-y: auto;
@@ -184,14 +205,16 @@ a.dashboard-fa-button:hover {
     margin-right: 30px;
 }
 
+.result-card:hover {
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
+
 .search-results {
     display: grid;
     justify-items: center;
     justify-content: center;
     align-items: stretch;
     margin: 20px;
-    grid-template-rows:    repeat(3, 200px);
-    grid-template-columns: repeat(3, 1fr);
 }
 
 a.search-result {

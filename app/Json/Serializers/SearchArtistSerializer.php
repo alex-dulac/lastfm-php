@@ -2,11 +2,15 @@
 
 namespace App\Json\Serializers;
 
-use App\Services\IocRoutine;
+use App\Services\CountryService;
 
 class SearchArtistSerializer
 {
-    use IocRoutine;
+    public function __construct(
+        private CountryService $countryService
+    ) {
+
+    }
 
     public function serialize(array $searchResults)
     {
@@ -17,7 +21,7 @@ class SearchArtistSerializer
         $artists = [];
 
         foreach ($searchResults['artists'] as $searchResult) {
-            if (count($artists) === 9) {
+            if (count($artists) === 12) {
                 break;
             }
 
@@ -30,7 +34,7 @@ class SearchArtistSerializer
 
             if (isset($searchResult['country']) && isset($searchResult['life-span']['begin'])) {
                 // it's not really worth showing if there is no country
-                $country = $this->getCountryService()->getCountryNameFromCountryCode($searchResult['country']);
+                $country = $this->countryService->getCountryNameFromCountryCode($searchResult['country']);
                 $artists[] = [
                     'id' => $searchResult['id'],
                     'name' => $searchResult['name'],

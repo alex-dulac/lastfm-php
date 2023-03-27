@@ -117,25 +117,25 @@
         <ng-template #searchLoaded>
             <section *ngIf="searchResults$ | async as searchResults">
                 <div class="results-wrapper padding">
-                    <div *ngIf="searchResults.length > 0">
+                    <div *ngIf="searchResults.length > 0 && artistSearchTerm != ''">
                         <h5>Results for "{{ this.artistSearchTerm }}":</h5>
-                        <div class="testing">
-                            <div *ngFor="let result of searchResults">
-                                <mat-card class="mat-elevation-z4">
+                        <div class="testing search-results">
+                            <div *ngFor="let result of searchResults" class="result-card">
+                                <mat-card (click)="viewArtist(result.id)">
                                     <mat-card-header>
                                         <mat-card-title> {{result.name}} </mat-card-title>
                                     </mat-card-header>
                                     <mat-card-content>
-                                        <p>{{result.name}}</p>
                                         <p>{{result.country}}</p>
                                         <p>{{result.establishedYear}}</p>
                                     </mat-card-content>
-                                    <mat-card-actions>
-                                        <button mat-button (click)="viewArtist(result.id)">VIEW</button>
-                                    </mat-card-actions>
                                 </mat-card>
                             </div>
                         </div>
+                    </div>
+
+                    <div *ngIf="artistSearchTerm == ''">
+                        <h5>Enter a search term.</h5>
                     </div>
                 </div>
             </section>

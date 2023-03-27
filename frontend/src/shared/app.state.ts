@@ -1,6 +1,13 @@
 import {AppTab, TAB_HOME} from "./app-tab.type";
 import {Action, Selector, State, StateContext} from "@ngxs/store";
-import {ResetState, SetActiveTab, SetArtistId, SetArtistSearchTerm} from "./app.actions";
+import {
+    ResetState,
+    SetActiveTab,
+    SetArtistId,
+    SetArtistSearchTerm,
+    SetReleaseGroupId,
+    SetReleaseSearchTerm
+} from "./app.actions";
 import {Injectable} from "@angular/core";
 
 export interface AppStateModel {
@@ -8,7 +15,7 @@ export interface AppStateModel {
     artistSearchTerm: string;
     artistId: string;
     releaseSearchTerm: string;
-    releaseId: string;
+    releaseGroupId: string;
 }
 
 @State<AppStateModel>({
@@ -18,7 +25,7 @@ export interface AppStateModel {
         artistSearchTerm: '',
         artistId: '',
         releaseSearchTerm: '',
-        releaseId: '',
+        releaseGroupId: '',
     }
 })
 
@@ -47,9 +54,34 @@ export class AppState {
         patchState({ artistId: payload });
     }
 
+    @Selector()
+    static getArtistSearchTerm(state: AppStateModel): string {
+        return state.artistSearchTerm;
+    }
+
     @Action(SetArtistSearchTerm)
     setArtistSearchTerm({ patchState }: StateContext<AppStateModel>, { payload }: SetArtistSearchTerm) {
         patchState({ artistSearchTerm: payload });
+    }
+
+    @Selector()
+    static getReleaseGroupId(state: AppStateModel): string {
+        return state.releaseGroupId;
+    }
+
+    @Action(SetReleaseGroupId)
+    setReleaseGroupId({ patchState }: StateContext<AppStateModel>, { payload }: SetReleaseGroupId) {
+        patchState({ releaseGroupId: payload });
+    }
+
+    @Selector()
+    static getReleaseSearchTerm(state: AppStateModel): string {
+        return state.releaseSearchTerm;
+    }
+
+    @Action(SetReleaseSearchTerm)
+    setReleaseSearchTerm({ patchState }: StateContext<AppStateModel>, { payload }: SetReleaseSearchTerm) {
+        patchState({ releaseSearchTerm: payload });
     }
 
     @Action(ResetState)
@@ -59,7 +91,7 @@ export class AppState {
             artistSearchTerm: '',
             artistId: '',
             releaseSearchTerm: '',
-            releaseId: '',
+            releaseGroupId: '',
         });
     }
 }

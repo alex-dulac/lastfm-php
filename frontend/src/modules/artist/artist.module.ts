@@ -11,8 +11,7 @@ import {MatButtonModule} from "@angular/material/button";
         MatCardModule,
         MatButtonModule
     ],
-    declarations: [
-    ]
+    declarations: []
 })
 
 export class ArtistModule {

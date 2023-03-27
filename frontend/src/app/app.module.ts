@@ -7,7 +7,6 @@ import {HomeComponent} from "@modules/home/home.component";
 import {ArtistComponent} from "@modules/artist/artist.component";
 import {ReleaseComponent} from "@modules/release/release.component";
 import {TrackComponent} from "@modules/track/track.component";
-import {AppRoutingModule} from './app-routing.module';
 import {CommonModule} from "@angular/common";
 import {ReactiveFormsModule} from "@angular/forms";
 import {MatCardModule} from "@angular/material/card";

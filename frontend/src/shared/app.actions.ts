@@ -18,6 +18,18 @@ export class SetArtistSearchTerm {
     }
 }
 
+export class SetReleaseGroupId {
+    static readonly type = '[App] Set Release Group Id';
+    constructor(public payload: string) {
+    }
+}
+
+export class SetReleaseSearchTerm {
+    static readonly type = '[App] Set Release Search Term';
+    constructor(public payload: string) {
+    }
+}
+
 export class ResetState {
     static readonly type = '[App] Reset State';
     constructor() {
