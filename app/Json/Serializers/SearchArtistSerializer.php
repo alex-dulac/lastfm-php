@@ -21,10 +21,6 @@ class SearchArtistSerializer
         $artists = [];
 
         foreach ($searchResults['artists'] as $searchResult) {
-            if (count($artists) === 12) {
-                break;
-            }
-
             $tags = [];
             if (isset($searchResult['tags'])) {
                 foreach ($searchResult['tags'] as $tag) {

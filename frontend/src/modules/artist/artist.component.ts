@@ -107,7 +107,7 @@ export class ArtistComponent implements OnInit, OnDestroy {
     }
 
     back() {
-        this.store.dispatch(new SetArtistId(''));
+        this.store.dispatch(new SetArtistId(null));
         this.artistId = null;
         this.prepareSearchPage();
     }

@@ -6,7 +6,9 @@ import {ArtistDetailsModel} from "@modules/artist/models/artist-details.model";
 import {ArtistSearchResult} from "@modules/artist/models/artist-search-result.model";
 import {EncyclopediaService} from "@services/api/encyclopedia.service";
 import {FormBuilder} from "@angular/forms";
-import {SetArtistId, SetArtistSearchTerm} from "../../shared/app.actions";
+import {SetArtistId, SetArtistSearchTerm, SetReleaseGroupId, SetReleaseSearchTerm} from "../../shared/app.actions";
+import {ReleaseGroupSearchResult} from "@modules/release/models/release-search-result.model";
+import {ReleaseGroupDetailsModel} from "@modules/release/models/release-group-details.model";
 
 @Component({
     selector: 'app-release',
@@ -21,11 +23,11 @@ export class ReleaseComponent implements OnInit {
     releaseGroupLoading: boolean;
     releaseGroupId: string;
     releaseSearchTerm: string;
-    artist$: Subject<ArtistDetailsModel> = new BehaviorSubject<ArtistDetailsModel>(null);
+    releaseGroup$: Subject<ReleaseGroupDetailsModel> = new BehaviorSubject<ReleaseGroupDetailsModel>(null);
 
     searchLoading: boolean;
     searchBox = this.formBuilder.group({});
-    searchResults$: Subject<ArtistSearchResult[]> = new BehaviorSubject<ArtistSearchResult[]>(null);
+    searchResults$: Subject<ReleaseGroupSearchResult[]> = new BehaviorSubject<ReleaseGroupSearchResult[]>(null);
 
     destroy: Subject<any> = new Subject<any>();
 
@@ -45,7 +47,7 @@ export class ReleaseComponent implements OnInit {
         })
 
         if (this.releaseGroupId) {
-            this.viewArtist(this.releaseGroupId);
+            this.viewReleaseGroup(this.releaseGroupId);
             return;
         }
         this.prepareSearchPage();
@@ -58,7 +60,7 @@ export class ReleaseComponent implements OnInit {
 
     prepareSearchPage() {
         this.searchBox = this.formBuilder.group({
-            artistSearchTerm: this.releaseSearchTerm,
+            releaseSearchTerm: this.releaseSearchTerm,
         });
 
         let currentSearchResults;
@@ -71,43 +73,43 @@ export class ReleaseComponent implements OnInit {
             this.releaseSearchTerm != ''
             && (currentSearchResults === null || currentSearchResults === undefined || currentSearchResults?.length < 1)
         ) {
-            this.searchArtist();
+            this.searchReleaseGroup();
         }
     }
 
-    searchArtist(): void {
+    searchReleaseGroup(): void {
         this.searchLoading = true;
-        const userEntry = this.searchBox.value.artistSearchTerm;
+        const userEntry = this.searchBox.value.releaseSearchTerm;
 
         if (userEntry === '' || userEntry === 'undefined') {
             this.releaseSearchTerm = ''; // this is just to overwrite 'undefined' if that is the case
-            this.store.dispatch(new SetArtistSearchTerm(''));
+            this.store.dispatch(new SetReleaseSearchTerm(''));
             this.searchLoading = false;
             return;
         }
 
-        this.encyclopediaService.searchArtist(userEntry)
+        this.encyclopediaService.searchReleaseGroup(userEntry)
             .subscribe((data) => {
                 this.searchResults$.next(data);
-                this.store.dispatch(new SetArtistSearchTerm(userEntry));
+                this.store.dispatch(new SetReleaseSearchTerm(userEntry));
                 this.searchLoading = false;
             });
     }
 
-    viewArtist(artistId: string) {
+    viewReleaseGroup(releaseGroupId: string) {
         this.releaseGroupLoading = true;
-        this.releaseGroupId = artistId;
-        this.store.dispatch(new SetArtistId(artistId));
+        this.releaseGroupId = releaseGroupId;
+        this.store.dispatch(new SetReleaseGroupId(releaseGroupId));
 
-        this.encyclopediaService.getArtist(artistId)
+        this.encyclopediaService.getReleaseGroup(releaseGroupId)
             .subscribe((data) => {
                 this.releaseGroupLoading = false;
-                this.artist$.next(data);
+                this.releaseGroup$.next(data);
             });
     }
 
     back() {
-        this.store.dispatch(new SetArtistId(''));
+        this.store.dispatch(new SetReleaseGroupId(''));
         this.releaseGroupId = null;
         this.prepareSearchPage();
     }

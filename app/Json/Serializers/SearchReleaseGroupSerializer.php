@@ -37,7 +37,7 @@ class SearchReleaseGroupSerializer
                 $releaseGroups[] = [
                     'releaseGroupId' => $searchResult['id'],
                     'title' => $searchResult['title'],
-                    'releaseDate' => $searchResult['first-release-date'] ?? null,
+                    'releaseDate' => $searchResult['first-release-date'],
                     'type' => $searchResult['primary-type'] ?? '',
                     'artist' => $artist,
                     'releases' => $releases,
