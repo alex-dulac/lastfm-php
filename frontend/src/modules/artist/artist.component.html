@@ -1,9 +1,172 @@
 <div class="padding">
     <div class="header">
+        <div *ngIf="currentArtistId$ | async as currentArtistId" class="back-button-wrapper">
+            <a (click)="back()"
+               class="dashboard-fa-button"
+               title="Back to Search Results">
+                <i class="fa-solid fa-circle-left fa-2x"></i>
+            </a>
+        </div>
         <h2><i class="fa-solid fa-microphone-lines"></i> Artists</h2>
     </div>
     <hr>
-    <div>
-        <router-outlet></router-outlet>
-    </div>
+
+    <ng-container *ngIf="artistId else search">
+        <div *ngIf="artistLoading; else artistLoaded" class="spinner-wrapper">
+            <div class="spinner">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+
+        <ng-template #artistLoaded>
+            <section *ngIf="artist$ | async as artist">
+                <div class="search-results">
+                    <div class="card">
+                        <mat-card>
+                            <mat-card-header>
+                                <mat-card-title> <h1>{{artist.name}}</h1> </mat-card-title>
+                            </mat-card-header>
+                        </mat-card>
+                    </div>
+
+                    <div class="card">
+                        <div class="artist-picture">
+                            <div *ngIf="artist.links.length > 0">
+                                <div *ngFor="let link of artist.links">
+                                    <div *ngIf="link.type === 'image'">
+                                        <img class="artist-image" src="{{link.source}}">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <mat-card>
+                            <mat-card-content>
+                                <p>Artist type: {{artist.artistType}}</p>
+                                <p>{{artist.disambiguation}}</p>
+                            </mat-card-content>
+                        </mat-card>
+                    </div>
+
+                    <div class="card">
+                        <mat-card>
+                            <mat-card-content>
+                                <p>Origin: {{artist.city}}, {{artist.country}}</p>
+                                <p>{{artist.establishedYear}} - {{artist.disbandedYear}}</p>
+                            </mat-card-content>
+                        </mat-card>
+                    </div>
+
+                    <div class="card">
+                        <mat-card>
+                            <mat-card-content>
+                                <p>{{artist.wikiIntro}}</p>
+                            </mat-card-content>
+                        </mat-card>
+                    </div>
+
+                    <div class="card">
+                        <mat-card>
+                            <mat-card-content>
+                                <p *ngIf="artist.onTour === true">{{artist.name}} is currently on tour!</p>
+                                <p *ngIf="artist.onTour === false">{{artist.name}} is currently not touring.</p>
+                            </mat-card-content>
+                        </mat-card>
+                    </div>
+
+                    <div class="card">
+                        <mat-card>
+                            <mat-card-content>
+                                <p class="last-fm"><a href="{{artist.lastFmUrl}}" target="_blank">LastFm</a> stats:</p>
+                                <ul>
+                                    <li>Listeners: {{artist.lastFmListenerCount}}</li>
+                                    <li>Plays: {{artist.lastFmPlayCount}}</li>
+                                </ul>
+                            </mat-card-content>
+                        </mat-card>
+                    </div>
+
+                    <div class="card">
+                        <mat-card>
+                            <mat-card-content>
+                                <div *ngIf="artist.links.length > 0">
+                                    <div *ngFor="let link of artist.links">
+                                        <div *ngIf="link.type === 'spotify'">
+                                            <a href="{{link.source}}" target="_blank"
+                                               class="dashboard-fa-button outside-link"
+                                               title="Listen to this artist on Spotify">
+                                                <i class="fa-brands fa-spotify fa-2x"></i>
+                                            </a>
+                                        </div>
+                                        <div *ngIf="link.type === 'discogs'">
+                                            <a href="{{link.source}}" target="_blank"
+                                               class="dashboard-fa-button outside-link"
+                                               title="Go to this artist's Discogs page">
+                                                <i class="fa-solid fa-compact-disc fa-2x"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </mat-card-content>
+                        </mat-card>
+                    </div>
+                </div>
+            </section>
+        </ng-template>
+    </ng-container>
+
+    <ng-template #search>
+        <h1>Artist Search</h1>
+        <div class="search-form padding">
+            <form [formGroup]="searchBox" (ngSubmit)="searchArtist()">
+                <label>
+                    <input type="text" class="search-field" formControlName="artistSearchTerm">
+                    <button type="submit" class="button-search" [disabled]="!searchBox.valid">Search</button>
+                </label>
+            </form>
+        </div>
+
+        <div *ngIf="searchLoading; else searchLoaded" class="spinner-wrapper">
+            <div class="spinner">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+
+        <ng-template #searchLoaded>
+            <section *ngIf="searchResults$ | async as searchResults">
+                <div class="results-wrapper padding">
+                    <div *ngIf="searchResults.length > 0 && artistSearchTerm != ''">
+                        <h5>Results for "{{ artistSearchTerm }}":</h5>
+                        <div class="search-results">
+                            <div *ngFor="let result of searchResults" class="card">
+                                <mat-card (click)="viewArtist(result.id)">
+                                    <mat-card-header>
+                                        <mat-card-title> {{result.name}} </mat-card-title>
+                                    </mat-card-header>
+                                    <mat-card-content>
+                                        <p>{{result.country}}</p>
+                                        <p>{{result.establishedYear}}</p>
+                                    </mat-card-content>
+                                </mat-card>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div *ngIf="artistSearchTerm == ''">
+                        <h5>Enter a search term.</h5>
+                    </div>
+                </div>
+            </section>
+        </ng-template>
+
+    </ng-template>
+
 </div>

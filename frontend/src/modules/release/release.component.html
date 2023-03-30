@@ -3,7 +3,85 @@
         <h2><i class="fa-solid fa-compact-disc"></i> Releases</h2>
     </div>
     <hr>
-    <div>
-        <router-outlet></router-outlet>
-    </div>
+    <ng-container *ngIf="releaseGroupId else search">
+        <div *ngIf="releaseGroupLoading; else releaseGroupLoaded" class="spinner-wrapper">
+            <div class="spinner">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+
+        <ng-template #releaseGroupLoaded>
+            <section *ngIf="releaseGroup$ | async as releaseGroup">
+                <div class="details-wrapper padding">
+                    <div class="artist-details">
+                        <div class="back-button-wrapper">
+                            <a (click)="back()"
+                               class="dashboard-fa-button"
+                               title="Back to Search Results">
+                                <i class="fa-solid fa-circle-left fa-2x"></i>
+                            </a>
+                        </div>
+
+                        <div class="artist-name">
+                            <h1>{{releaseGroup.id}}</h1>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+        </ng-template>
+    </ng-container>
+
+    <ng-template #search>
+        <h1>Releases Search</h1>
+        <div class="search-form padding">
+            <form [formGroup]="searchBox" (ngSubmit)="searchReleaseGroup()">
+                <label>
+                    <input type="text" class="search-field" formControlName="releaseSearchTerm">
+                    <button type="submit" class="button-search" [disabled]="!searchBox.valid">Search</button>
+                </label>
+            </form>
+        </div>
+
+        <div *ngIf="searchLoading; else searchLoaded" class="spinner-wrapper">
+            <div class="spinner">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+
+        <ng-template #searchLoaded>
+            <section *ngIf="searchResults$ | async as searchResults">
+                <div class="results-wrapper padding">
+                    <div *ngIf="searchResults.length > 0 && releaseSearchTerm != ''">
+                        <h5>Results for "{{ this.releaseSearchTerm }}":</h5>
+                        <div class="search-results">
+                            <div *ngFor="let result of searchResults" class="card">
+                                <mat-card (click)="viewReleaseGroup(result.releaseGroupId)">
+                                    <mat-card-header>
+                                        <mat-card-title> {{result.title}} </mat-card-title>
+                                    </mat-card-header>
+                                    <mat-card-content>
+                                        <p>{{result.artist.artistName}}</p>
+                                        <p>{{result.type}}</p>
+                                        <p>{{result.releaseDate}}</p>
+                                    </mat-card-content>
+                                </mat-card>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div *ngIf="releaseSearchTerm == ''">
+                        <h5>Enter a search term.</h5>
+                    </div>
+                </div>
+            </section>
+        </ng-template>
+
+    </ng-template>
 </div>

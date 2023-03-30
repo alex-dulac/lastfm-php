@@ -1,19 +1,30 @@
 import {Component, OnInit} from '@angular/core';
+import {
+    AppTab,
+    TAB_ARTISTS,
+    TAB_HOME,
+    TAB_LABELS,
+    TAB_RELEASES,
+    TAB_TRACKS, TAB_VENUES
+} from "../../shared/app-tab.type";
+import {Select, Store} from "@ngxs/store";
+import {ResetState, SetActiveTab} from "../../shared/app.actions";
+import {AppState} from "../../shared/app.state";
+import {Observable} from "rxjs";
 
-declare interface RouteInfo {
-    path: string;
+declare interface SidebarLink {
+    type: AppTab;
     title: string;
-    icon: string;
-    class: string;
+    singular?: string;
 }
 
-export const ROUTES: RouteInfo[] = [
-    {path: '/home', title: 'Home', icon: 'dashboard', class: ''},
-    {path: '/artist', title: 'Artists', icon: 'person', class: ''},
-    { path: '/release', title: 'Releases',  icon:'content_paste', class: '' },
-    { path: '/track', title: 'Tracks',  icon:'library_books', class: '' }, // recordings
-    { path: '/label', title: 'Labels',  icon:'library_books', class: '' },
-    { path: '/venue', title: 'Venues',  icon:'library_books', class: '' }, // places
+export const ROUTES: SidebarLink[] = [
+    { type: TAB_HOME, title: 'Home' },
+    { type: TAB_ARTISTS, title: 'Artists', singular: 'artist' },
+    { type: TAB_RELEASES, title: 'Releases', singular: 'release'  },
+    { type: TAB_TRACKS, title: 'Tracks', singular: 'track'  }, // recordings
+    { type: TAB_LABELS, title: 'Labels', singular: 'label'  },
+    { type: TAB_VENUES, title: 'Venues', singular: 'venue'  }, // places
 
 ];
 
@@ -23,13 +34,25 @@ export const ROUTES: RouteInfo[] = [
     styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent implements OnInit {
-    sidebarLinks: any = [];
+    sidebarLinks: SidebarLink[];
+    activeTab: AppTab;
+    @Select(AppState.getActiveTab) currentTab$: Observable<AppTab>;
 
-    constructor() {
+    constructor(private store: Store) {
     }
 
     ngOnInit() {
         this.sidebarLinks = ROUTES.filter(sidebarLink => sidebarLink);
+        this.currentTab$.subscribe(tab => {
+            this.activeTab = tab;
+        })
     }
 
+    changeActiveTab(tab: AppTab) {
+        this.store.dispatch(new SetActiveTab(tab));
+    }
+
+    clearStorage(): void {
+        this.store.dispatch(new ResetState());
+    }
 }

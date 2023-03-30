@@ -12,15 +12,11 @@ use App\Services\Encyclopedia\Model\SearchArtistRequest;
 
 class EncyclopediaService
 {
-    private MusicBrainzApi $musicBrainzApi;
-    private WikipediaApi $wikipediaApi;
-    private LastFmApi $lastFmApi;
-
-    public function __construct(MusicBrainzApi $musicBrainzApi, WikipediaApi $wikipediaApi, LastFmApi $lastFmApi)
-    {
-        $this->musicBrainzApi = $musicBrainzApi;
-        $this->wikipediaApi = $wikipediaApi;
-        $this->lastFmApi = $lastFmApi;
+    public function __construct(
+        private MusicBrainzApi $musicBrainzApi,
+        private WikipediaApi $wikipediaApi,
+        private LastFmApi $lastFmApi
+    ) {
     }
 
     public function searchArtist(SearchArtistRequest $request)

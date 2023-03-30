@@ -1,3 +1,29 @@
+html,body {
+    height: 100%;
+}
+
+.wrapper {
+    height: auto;
+    min-height: 100%;
+}
+
+.sidebar {
+    position: fixed;
+    min-height: 988px;
+    float: left;
+    width: 300px;
+    background: #3F72AF;
+    padding: 30px 15px;
+}
+
+.dashboard {
+    height: auto;
+    min-height: 988px;
+    background: #DBE2EF;
+    margin-left: 300px;
+    padding: 30px 15px;
+}
+
 .padding {
     padding: 20px;
 }
@@ -30,39 +56,23 @@ ul {
     text-align: center;
 }
 
-.details-wrapper {
-    position: absolute;
-    height: 680px;
-    margin: 10px;
-    text-align: center;
-    overflow-y: auto;
-}
-
-.details-unit {
-    position: relative;
-    display: inline-block;
-    padding: 10px;
-    margin: 10px;
-    background: #eceff1;
-    border-radius: 3px;
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-    color:#112D4E;
-    text-align: left;
-}
-
-.small-details-unit {
-    height: 10px;
-}
-
 .artist-details {
-    justify-content: center;
+    /*justify-content: center;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: 100px 200px 200px 100px;
     grid-template-areas:"name name picture picture"
                         "wiki wiki picture picture"
                         "wiki wiki facts facts"
-                        "wiki wiki links links";
+                        "wiki wiki links links";*/
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    box-sizing: border-box;
+    align-content: stretch;
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: 10px;
 }
 
 .artist-facts, .artist-wiki, .artist-links {
@@ -141,7 +151,7 @@ ul {
     width: 375px;
 }
 
-.entity-link {
+.outside-link {
     float: left;
     padding: 5px;
     margin: 5px 10px;
@@ -169,32 +179,18 @@ a.dashboard-fa-button:hover {
 }
 
 .search-results {
-    display: grid;
-    justify-items: center;
-    justify-content: center;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    box-sizing: border-box;
+    align-content: stretch;
     align-items: stretch;
-    margin: 20px;
-    grid-template-rows:    repeat(3, 125px);
-    grid-template-columns: repeat(3, 1fr);
+    justify-content: flex-start;
+    gap: 10px;
 }
 
-a.search-result {
-    position: relative;
-    display: inline-block;
-    padding: 20px;
-    margin: 20px;
-    background: #eceff1;
-    border-radius: 3px;
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-    transition: all 0.2s ease-in-out;
-    height: 100px;
-    width: 350px;
-    color:#112D4E;
-    text-align: center;
-}
-a.search-result:hover{
+.card:hover {
     box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
-    text-decoration: none;
 }
 
 button.button-search {
@@ -218,25 +214,6 @@ button.button-search:hover {
     background-color:#112D4E;
 }
 
-a.button-result {
-    display:inline-block;
-    padding:1.0em 3.0em;
-    border:0.15em solid #DBE2EF;
-    margin:0 0.3em 0.3em 0;
-    border-radius:2.0em;
-    box-sizing: border-box;
-    text-decoration:none;
-    font-family:'Roboto',sans-serif;
-    font-weight:300;
-    color:#DBE2EF;
-    text-align:center;
-    transition: all 0.2s;
-}
-a.button-result:hover {
-    color:#000000;
-    background-color:#DBE2EF;
-}
-
 a.button-sidebar {
     display:inline-block;
     padding:1.0em 3.0em;
@@ -256,6 +233,11 @@ a.button-sidebar:hover {
     color:#000000;
     background-color:#DBE2EF;
 }
+
+.active-tab {
+    background-color:#DBE2EF;
+}
+
 @media all and (max-width:30em) {
     a.button-sidebar{
         display:block;
@@ -283,7 +265,7 @@ a.button-sidebar:hover {
     width: 64px;
     height: 64px;
     margin: 8px;
-    border: 8px solid #112D4E;
+    border: 8px solid;
     border-radius: 50%;
     animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
     border-color: #112D4E transparent transparent transparent;
@@ -305,4 +287,5 @@ a.button-sidebar:hover {
         transform: rotate(360deg);
     }
 }
+
 

@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Log;
 class MusicBrainzApi
 {
     private string $baseUrl;
-    public const LIMIT = 9;
+    public const LIMIT = 50;
 
     public const ARTIST_URL = '/artist';
     public const RELEASE_GROUP_URL = '/release-group';

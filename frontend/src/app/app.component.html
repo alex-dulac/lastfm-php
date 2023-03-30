@@ -1,1 +1,25 @@
-<router-outlet></router-outlet>
+<div class="wrapper">
+    <div class="sidebar">
+        <app-sidebar></app-sidebar>
+    </div>
+    <div class="dashboard" [ngSwitch]="activeTab">
+        <div *ngSwitchCase="home">
+            <app-home></app-home>
+        </div>
+        <div *ngSwitchCase="artist">
+            <app-artist></app-artist>
+        </div>
+        <div *ngSwitchCase="releases">
+            <app-release></app-release>
+        </div>
+        <div *ngSwitchCase="tracks">
+            <app-track></app-track>
+        </div>
+        <div *ngSwitchCase="labels">
+            <app-home></app-home>
+        </div>
+        <div *ngSwitchCase="venues">
+            <app-home></app-home>
+        </div>
+    </div>
+</div>
