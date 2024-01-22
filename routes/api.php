@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EncyclopediaController;
 
@@ -15,8 +14,9 @@ use App\Http\Controllers\EncyclopediaController;
 |
 */
 
-require __DIR__ . '/api/ApiRoutes.php';
-
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::group(["middleware" => ["api"]], function () {
+    Route::get('/Encyclopedia/searchArtist', [EncyclopediaController::class, 'searchArtist']);
+    Route::get('/Encyclopedia/getArtist', [EncyclopediaController::class, 'getArtist']);
+    Route::get('/Encyclopedia/searchReleaseGroup', [EncyclopediaController::class, 'searchReleaseGroup']);
+    Route::get('/Encyclopedia/getReleaseGroup', [EncyclopediaController::class, 'getReleaseGroup']);
 });

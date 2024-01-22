@@ -1,0 +1,12 @@
+<div class="padding text-right">
+    <h2 *ngIf="activeTab != home">
+        <i 
+            class="fa-solid"
+            [ngClass]="
+                activeTab === artists ? 'fa-microphone-lines' : 
+                activeTab === releases ? 'fa-compact-disc' : 
+                ''
+            "
+        ></i> {{ activeTab }}
+    </h2>
+</div>

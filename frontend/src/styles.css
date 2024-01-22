@@ -1,35 +1,72 @@
 html,body {
+    padding: 0;
+    margin: 0;
     height: 100%;
 }
 
 .wrapper {
+    display: flex;
     height: auto;
     min-height: 100%;
 }
 
 .sidebar {
     position: fixed;
-    min-height: 988px;
-    float: left;
+    height: 100%;
     width: 300px;
+    border-right-width: 2px;
+    border-color: #0a0c10;
     background: #3F72AF;
-    padding: 30px 15px;
+    overflow: auto;
 }
 
 .dashboard {
-    height: auto;
-    min-height: 988px;
-    background: #DBE2EF;
     margin-left: 300px;
-    padding: 30px 15px;
+    width: 100%;
 }
 
 .padding {
-    padding: 20px;
+    padding: 25px;
+}
+
+.content {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    background: #DBE2EF;
+    margin-top: 100px;
+    overflow: auto;
+}
+
+.header {
+    max-width: 1620px;
+    width: 100%;
+    position: fixed;
+    height: 100px;
+    background: #d6dce3;
+    z-index: 10;
+    border-bottom-width: 2px;
+    border-color: #0a0c10;
+}
+
+.component-header {
+
 }
 
 h1, h2, h3, h4, h5, p, span, li, a {
     font-family:'Roboto',sans-serif;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.text-center {
+    text-align: center;
+}
+
+label {
+    margin-bottom: 0;
 }
 
 .logo {
@@ -42,18 +79,20 @@ h1, h2, h3, h4, h5, p, span, li, a {
     width: 100px;
 }
 
+.width {
+    width: 100%;
+    
+}
+
 ul {
     list-style-type: none;
     padding: 0;
     margin: 0;
 }
 
-.header {
-    text-align: right;
-}
-
 .search-form {
-    text-align: center;
+    display: flex;
+    justify-content: center;
 }
 
 .artist-details {
@@ -82,7 +121,6 @@ ul {
     color:#112D4E;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
-
 
 .artist-name {
     grid-area: name;
@@ -189,6 +227,14 @@ a.dashboard-fa-button:hover {
     gap: 10px;
 }
 
+.search-result-content {
+    justify-content: space-between;
+}
+
+.result-row span {
+    justify-content: space-between;
+}
+
 .card:hover {
     box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
 }
@@ -246,46 +292,7 @@ a.button-sidebar:hover {
 }
 
 .spinner-wrapper {
-    margin-top: 325px;
-    margin-left: 560px;
+    display: flex;
+    justify-content: center;
+    margin-top: 30vh;
 }
-
-/* Spinner source: https://loading.io/css/ */
-
-.spinner {
-    display: inline-block;
-    position: relative;
-    width: 80px;
-    height: 80px;
-}
-.spinner div {
-    box-sizing: border-box;
-    display: block;
-    position: absolute;
-    width: 64px;
-    height: 64px;
-    margin: 8px;
-    border: 8px solid;
-    border-radius: 50%;
-    animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-    border-color: #112D4E transparent transparent transparent;
-}
-.lds-ring div:nth-child(1) {
-    animation-delay: -0.45s;
-}
-.lds-ring div:nth-child(2) {
-    animation-delay: -0.3s;
-}
-.lds-ring div:nth-child(3) {
-    animation-delay: -0.15s;
-}
-@keyframes lds-ring {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
-}
-
-

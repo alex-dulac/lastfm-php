@@ -26,6 +26,7 @@ export class ArtistComponent implements OnInit, OnDestroy {
     searchLoading: boolean;
     searchBox = this.formBuilder.group({});
     searchResults$: Subject<ArtistSearchResult[]> = new BehaviorSubject<ArtistSearchResult[]>(null);
+    currentSearchResults: ArtistSearchResult[];
 
     destroy: Subject<any> = new Subject<any>();
 
@@ -61,18 +62,23 @@ export class ArtistComponent implements OnInit, OnDestroy {
             artistSearchTerm: this.artistSearchTerm,
         });
 
-        let currentSearchResults;
         this.searchResults$.subscribe(result => {
-            currentSearchResults = result;
+            this.currentSearchResults = result;
         });
 
         // skip the search if there is no search term, or if we already have a batch of results
-        if (
-            this.artistSearchTerm != ''
-            && (currentSearchResults === null || currentSearchResults === undefined || currentSearchResults?.length < 1)
-        ) {
+        if (this.artistSearchTerm != '' && (
+            this.currentSearchResults === null || 
+            this.currentSearchResults === undefined || 
+            this.currentSearchResults?.length < 1
+        )) {
             this.searchArtist();
         }
+    }
+
+    clear() {
+        this.store.dispatch(new SetArtistSearchTerm(''));
+        this.searchBox.setValue({artistSearchTerm: ''});
     }
 
     searchArtist(): void {
@@ -86,12 +92,11 @@ export class ArtistComponent implements OnInit, OnDestroy {
             return;
         }
 
-        this.encyclopediaService.searchArtist(userEntry)
-            .subscribe((data) => {
-                this.searchResults$.next(data);
-                this.store.dispatch(new SetArtistSearchTerm(userEntry));
-                this.searchLoading = false;
-            });
+        this.encyclopediaService.searchArtist(userEntry).subscribe((data) => {
+            this.searchResults$.next(data);
+            this.store.dispatch(new SetArtistSearchTerm(userEntry));
+            this.searchLoading = false;
+        });
     }
 
     viewArtist(artistId: string) {
@@ -99,11 +104,10 @@ export class ArtistComponent implements OnInit, OnDestroy {
         this.artistId = artistId;
         this.store.dispatch(new SetArtistId(artistId));
 
-        this.encyclopediaService.getArtist(artistId)
-            .subscribe((data) => {
-                this.artistLoading = false;
-                this.artist$.next(data);
-            });
+        this.encyclopediaService.getArtist(artistId).subscribe((data) => {
+            this.artistLoading = false;
+            this.artist$.next(data);
+        });
     }
 
     back() {

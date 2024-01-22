@@ -15,3 +15,4 @@ yarn-error.log
 
 /tests
 phpunit.xml
+.DS_Store

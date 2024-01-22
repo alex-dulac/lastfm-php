@@ -1,5 +1,5 @@
 <div class="padding">
-    <div class="header">
+    <div class="component-header">
         <div *ngIf="currentArtistId$ | async as currentArtistId" class="back-button-wrapper">
             <a (click)="back()"
                class="dashboard-fa-button"
@@ -7,18 +7,12 @@
                 <i class="fa-solid fa-circle-left fa-2x"></i>
             </a>
         </div>
-        <h2><i class="fa-solid fa-microphone-lines"></i> Artists</h2>
     </div>
     <hr>
 
     <ng-container *ngIf="artistId else search">
         <div *ngIf="artistLoading; else artistLoaded" class="spinner-wrapper">
-            <div class="spinner">
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-            </div>
+            <mat-spinner [color]="'primary'"></mat-spinner>
         </div>
 
         <ng-template #artistLoaded>
@@ -121,7 +115,6 @@
     </ng-container>
 
     <ng-template #search>
-        <h1>Artist Search</h1>
         <div class="search-form padding">
             <form [formGroup]="searchBox" (ngSubmit)="searchArtist()">
                 <label>
@@ -129,39 +122,35 @@
                     <button type="submit" class="button-search" [disabled]="!searchBox.valid">Search</button>
                 </label>
             </form>
+            <button class="button-search" (click)="clear()">Clear</button>
+        </div>
+
+        <div *ngIf="!searchBox.value.artistSearchTerm && !searchLoading" class="search-form padding">
+            <h5>Enter a search term</h5>
         </div>
 
         <div *ngIf="searchLoading; else searchLoaded" class="spinner-wrapper">
-            <div class="spinner">
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-            </div>
+            <mat-spinner [color]="'primary'"></mat-spinner>
         </div>
 
         <ng-template #searchLoaded>
             <section *ngIf="searchResults$ | async as searchResults">
                 <div class="results-wrapper padding">
                     <div *ngIf="searchResults.length > 0 && artistSearchTerm != ''">
-                        <h5>Results for "{{ artistSearchTerm }}":</h5>
+                        <h5 class="search-form padding">Results for "{{ artistSearchTerm }}":</h5>
                         <div class="search-results">
-                            <div *ngFor="let result of searchResults" class="card">
-                                <mat-card (click)="viewArtist(result.id)">
-                                    <mat-card-header>
-                                        <mat-card-title> {{result.name}} </mat-card-title>
-                                    </mat-card-header>
-                                    <mat-card-content>
-                                        <p>{{result.country}}</p>
-                                        <p>{{result.establishedYear}}</p>
-                                    </mat-card-content>
-                                </mat-card>
-                            </div>
+                            <mat-list class="width">
+                                <mat-list-item 
+                                *ngFor="let result of searchResults" 
+                                (click)="viewArtist(result.id)" 
+                                class="card result-row"
+                                >
+                                    <span> {{result.name}} </span>
+                                    <span> {{result.establishedYear}} </span>
+                                    <span> {{result.country}} </span>
+                               </mat-list-item>
+                            </mat-list>
                         </div>
-                    </div>
-
-                    <div *ngIf="artistSearchTerm == ''">
-                        <h5>Enter a search term.</h5>
                     </div>
                 </div>
             </section>

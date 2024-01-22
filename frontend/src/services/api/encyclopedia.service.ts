@@ -11,7 +11,7 @@ import {ReleaseGroupDetailsModel} from "@modules/release/models/release-group-de
 })
 export class EncyclopediaService {
 
-    baseUrl = 'http://127.0.0.1:8000/api';
+    baseUrl = 'https://api.music.app.test/api';
 
     constructor(
         private http: HttpClient
@@ -21,7 +21,7 @@ export class EncyclopediaService {
     searchArtist(searchTerm: string): Observable<ArtistSearchResult[]> {
         let params = new HttpParams();
         params = params.set('searchTerm', searchTerm);
-        return this.http.get<any>(this.baseUrl + '/Encyclopedia/searchArtist', {params: params});
+        return this.http.get<ArtistSearchResult[]>(this.baseUrl + '/Encyclopedia/searchArtist', {params: params});
     }
 
     getArtist(artistId: string): Observable<ArtistDetailsModel> {

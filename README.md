@@ -10,7 +10,11 @@ It is a bit of a work-in-progress.
 - MediaWiki (https://www.mediawiki.org/wiki/API:Main_page)
 - LastFm (https://www.last.fm/api) - <i>You will need your own API key for this service</i>
 
-## How To Use:
+## How To Use (Docker):
+
+- Check out the following repository: https://github.com/alex-dulac/docker-music-app
+
+## How To Use (non-Docker):
 
 - Make sure php and angular are installed on your machine.
 - Download the source code.

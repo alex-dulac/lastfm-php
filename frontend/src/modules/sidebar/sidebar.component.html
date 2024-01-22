@@ -1,11 +1,11 @@
-<div class="sidebar-header">
+<div class="text-center padding">
     <img class="logo-2" src="/assets/logo2.png">
 </div>
 
 <hr>
 
-<div class="sidebar-wrapper">
-    <ul class="sidebar-nav">
+<div class="sidebar-content">
+    <ul class="text-center padding">
         <li *ngFor="let sidebarLink of sidebarLinks" class="nav-item">
             <a class="button-sidebar" (click)="changeActiveTab(sidebarLink.type)"
                [ngClass]="sidebarLink.type === activeTab ? 'active-tab' : ''">
