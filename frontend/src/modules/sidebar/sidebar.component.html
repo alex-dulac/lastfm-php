@@ -2,8 +2,6 @@
     <img class="logo-2" src="/assets/logo2.png">
 </div>
 
-<hr>
-
 <div class="sidebar-content">
     <ul class="text-center padding">
         <li *ngFor="let sidebarLink of sidebarLinks" class="nav-item">
@@ -13,7 +11,7 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="button-sidebar" (click)="clearStorage()">
+            <a class="button-sidebar" (click)="resetState()">
                 <span>Reset History</span>
             </a>
         </li>

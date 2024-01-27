@@ -13,6 +13,9 @@ export class HeaderComponent implements OnInit {
     activeTab: AppTab;
     @Select(AppState.getActiveTab) currentTab$: Observable<AppTab>;
 
+    scrobblingEnabled: boolean = false;
+    @Select(AppState.getScrobblingEnabled) scrobblingEnabled$: Observable<boolean>;
+
     home: AppTab = TAB_HOME;
     artists: AppTab = TAB_ARTISTS;
     releases: AppTab = TAB_RELEASES;
@@ -26,8 +29,11 @@ export class HeaderComponent implements OnInit {
     ngOnInit() {
         this.currentTab$.subscribe(tab => {
             this.activeTab = tab;
-        })
+        });
+
+        this.scrobblingEnabled$.subscribe(enabled => {
+            this.scrobblingEnabled = enabled;
+        });
     }
 
-    
 }

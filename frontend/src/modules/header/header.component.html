@@ -1,12 +1,28 @@
-<div class="padding text-right">
-    <h2 *ngIf="activeTab != home">
-        <i 
-            class="fa-solid"
-            [ngClass]="
-                activeTab === artists ? 'fa-microphone-lines' : 
-                activeTab === releases ? 'fa-compact-disc' : 
-                ''
-            "
-        ></i> {{ activeTab }}
-    </h2>
+<div class="header-content">
+    <span *ngIf="activeTab == home">
+        <h2>
+            Music Explorer
+        </h2>
+    </span>
+
+    <span *ngIf="activeTab != home">
+        <h2>
+            <i 
+                class="fa-solid"
+                [ngClass]="
+                    activeTab === artists ? 'fa-microphone-lines' : 
+                    activeTab === releases ? 'fa-compact-disc' : 
+                    ''
+                "
+            ></i> {{ activeTab }}
+        </h2>
+    </span>
+
+    <span *ngIf="scrobblingEnabled">
+        <h2> Scrobbling Enabled! </h2>
+    </span>
+
+    <span *ngIf="!scrobblingEnabled">
+        <h4> Scrobbling is not enabled! </h4>
+    </span>
 </div>

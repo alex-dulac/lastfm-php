@@ -2,27 +2,30 @@ html,body {
     padding: 0;
     margin: 0;
     height: 100%;
+    width: 100%;
 }
 
 .wrapper {
     display: flex;
     height: auto;
     min-height: 100%;
+    width: auto;
+    min-width: 100%;
 }
 
 .sidebar {
     position: fixed;
     height: 100%;
     width: 300px;
-    border-right-width: 2px;
-    border-color: #0a0c10;
     background: #3F72AF;
     overflow: auto;
 }
 
 .dashboard {
-    margin-left: 300px;
+    padding-left: 300px;
     width: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .padding {
@@ -33,20 +36,29 @@ html,body {
     height: 100%;
     width: 100%;
     display: flex;
+    justify-content: center;
     background: #DBE2EF;
-    margin-top: 100px;
     overflow: auto;
 }
 
 .header {
-    max-width: 1620px;
-    width: 100%;
-    position: fixed;
-    height: 100px;
-    background: #d6dce3;
-    z-index: 10;
-    border-bottom-width: 2px;
-    border-color: #0a0c10;
+    /* position: fixed; 
+    z-index: 10; */
+    height: 150px;
+    background: #DBE2EF;
+    border-bottom: 2px solid #3F72AF;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: stretch;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    color: #3F72AF;
+    flex-wrap: wrap;
+    align-items: baseline;
 }
 
 .component-header {
