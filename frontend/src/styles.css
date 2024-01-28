@@ -35,22 +35,26 @@ html,body {
 .content {
     height: 100%;
     width: 100%;
+    padding-top: 125px;
     display: flex;
     justify-content: center;
     background: #DBE2EF;
     overflow: auto;
 }
 
-.header {
-    /* position: fixed; 
-    z-index: 10; */
-    height: 150px;
+.header-fixed {
+    position: fixed; 
+    right: 0;
+    width: calc(100% - 300px);
+    z-index: 10;
+    height: 125px;
     background: #DBE2EF;
-    border-bottom: 2px solid #3F72AF;
+    border-bottom: 1px solid #3F72AF;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: stretch;
+    box-shadow: #3f72af 0 0 10px
 }
 
 .header-content {
@@ -205,11 +209,6 @@ ul {
     float: left;
     padding: 5px;
     margin: 5px 10px;
-}
-
-.back-button-wrapper {
-    float: left;
-    position: absolute;
 }
 
 a.dashboard-fa-button {

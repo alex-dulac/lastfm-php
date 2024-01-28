@@ -12,6 +12,7 @@
                 [ngClass]="
                     activeTab === artists ? 'fa-microphone-lines' : 
                     activeTab === releases ? 'fa-compact-disc' : 
+                    activeTab === lastfm ? 'fa-last-fm' : 
                     ''
                 "
             ></i> {{ activeTab }}
@@ -20,9 +21,5 @@
 
     <span *ngIf="scrobblingEnabled">
         <h2> Scrobbling Enabled! </h2>
-    </span>
-
-    <span *ngIf="!scrobblingEnabled">
-        <h4> Scrobbling is not enabled! </h4>
     </span>
 </div>

@@ -1,8 +1,8 @@
-import {Component, OnInit} from '@angular/core';
-import {AppTab, TAB_ARTISTS, TAB_HOME, TAB_LABELS, TAB_RELEASES, TAB_TRACKS, TAB_VENUES} from "../../shared/app-tab.type";
-import {Select, Store} from "@ngxs/store";
-import {AppState} from "../../shared/app.state";
-import {Observable} from "rxjs";
+import { Component, OnInit } from '@angular/core';
+import { AppTab, TAB_ARTISTS, TAB_HOME, TAB_LABELS, TAB_RELEASES, TAB_LASTFM, TAB_TRACKS, TAB_VENUES } from "../../shared/app-tab.type";
+import { Select, Store } from "@ngxs/store";
+import { AppState } from "../../shared/app.state";
+import { Observable } from "rxjs";
 
 @Component({
     selector: 'app-header',
@@ -22,6 +22,7 @@ export class HeaderComponent implements OnInit {
     tracks: AppTab = TAB_TRACKS;
     labels: AppTab = TAB_LABELS;
     venues: AppTab = TAB_VENUES;
+    lastfm: AppTab = TAB_LASTFM;
 
     constructor(private store: Store) {
     }

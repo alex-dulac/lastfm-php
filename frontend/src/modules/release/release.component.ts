@@ -52,11 +52,6 @@ export class ReleaseComponent implements OnInit {
         this.prepareSearchPage();
     }
 
-    ngOnDestroy() {
-        this.destroy.next(null);
-        this.destroy.complete();
-    }
-
     prepareSearchPage() {
         this.searchBox = this.formBuilder.group({
             releaseSearchTerm: this.releaseSearchTerm,

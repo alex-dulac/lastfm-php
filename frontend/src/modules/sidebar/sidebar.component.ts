@@ -5,7 +5,7 @@ import {
     TAB_HOME,
     TAB_LABELS,
     TAB_RELEASES,
-    TAB_SCROBBLE,
+    TAB_LASTFM,
     TAB_TRACKS, TAB_VENUES
 } from "../../shared/app-tab.type";
 import { Select, Store } from "@ngxs/store";
@@ -23,10 +23,10 @@ export const ROUTES: SidebarLink[] = [
     { type: TAB_HOME, title: 'Home' },
     { type: TAB_ARTISTS, title: 'Artists', singular: 'artist' },
     { type: TAB_RELEASES, title: 'Releases', singular: 'release'  },
-    { type: TAB_TRACKS, title: 'Tracks', singular: 'track'  }, // recordings
-    { type: TAB_LABELS, title: 'Labels', singular: 'label'  },
-    { type: TAB_VENUES, title: 'Venues', singular: 'venue'  }, // places
-    { type: TAB_SCROBBLE, title: 'Scrobble', singular: 'scrobble'  },
+    // { type: TAB_TRACKS, title: 'Tracks', singular: 'track'  }, // recordings
+    // { type: TAB_LABELS, title: 'Labels', singular: 'label'  },
+    // { type: TAB_VENUES, title: 'Venues', singular: 'venue'  }, // places
+    { type: TAB_LASTFM, title: 'LastFM', singular: 'lastfm'  },
 ];
 
 @Component({

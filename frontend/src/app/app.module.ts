@@ -16,7 +16,7 @@ import { AppState } from "../shared/app.state";
 import { MatListModule } from '@angular/material/list';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { HeaderComponent } from '@modules/header/header.component';
-import { ScrobbleComponent } from '@modules/scrobble/scrobble.component';
+import { LastFmComponent } from '@modules/lastfm/lastfm.component';
 
 
 @NgModule({
@@ -28,7 +28,7 @@ import { ScrobbleComponent } from '@modules/scrobble/scrobble.component';
         ReleaseComponent,
         TrackComponent,
         HeaderComponent,
-        ScrobbleComponent
+        LastFmComponent
     ],
     imports: [
         CommonModule,

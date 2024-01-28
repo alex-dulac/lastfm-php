@@ -1,19 +1,19 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ArtistSearchResult} from "@modules/artist/models/artist-search-result.model";
-import {EncyclopediaService} from "@services/api/encyclopedia.service";
-import {FormBuilder} from "@angular/forms";
-import {BehaviorSubject, Observable, Subject} from "rxjs";
-import {ArtistDetailsModel} from "@modules/artist/models/artist-details.model";
-import {Select, Store} from "@ngxs/store";
-import {AppState} from "../../shared/app.state";
-import {SetArtistId, SetArtistSearchTerm} from "../../shared/app.actions";
+import { Component, OnInit } from '@angular/core';
+import { ArtistSearchResult } from "@modules/artist/models/artist-search-result.model";
+import { EncyclopediaService } from "@services/api/encyclopedia.service";
+import { FormBuilder } from "@angular/forms";
+import { BehaviorSubject, Observable, Subject } from "rxjs";
+import { ArtistDetailsModel } from "@modules/artist/models/artist-details.model";
+import { Select, Store } from "@ngxs/store";
+import { AppState } from "../../shared/app.state";
+import { SetArtistId, SetArtistSearchTerm } from "../../shared/app.actions";
 
 @Component({
     selector: 'app-artist',
     templateUrl: './artist.component.html',
     styleUrls: ['./artist.component.scss']
 })
-export class ArtistComponent implements OnInit, OnDestroy {
+export class ArtistComponent implements OnInit {
 
     @Select(AppState.getArtistId) currentArtistId$: Observable<string>;
     @Select(AppState.getArtistSearchTerm) currentArtistSearchTerm$: Observable<string>;
@@ -50,11 +50,6 @@ export class ArtistComponent implements OnInit, OnDestroy {
             return;
         }
         this.prepareSearchPage();
-    }
-
-    ngOnDestroy() {
-        this.destroy.next(null);
-        this.destroy.complete();
     }
 
     prepareSearchPage() {

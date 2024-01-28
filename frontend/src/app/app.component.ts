@@ -7,7 +7,7 @@ import {
     TAB_RELEASES,
     TAB_TRACKS,
     TAB_VENUES,
-    TAB_SCROBBLE
+    TAB_LASTFM
 } from "../shared/app-tab.type";
 import { Observable } from "rxjs";
 import { Select } from "@ngxs/store";
@@ -27,7 +27,7 @@ export class AppComponent implements OnInit {
     tracks: AppTab = TAB_TRACKS;
     labels: AppTab = TAB_LABELS;
     venues: AppTab = TAB_VENUES;
-    scrobble: AppTab = TAB_SCROBBLE;
+    lastfm: AppTab = TAB_LASTFM;
 
     @Select(AppState.getActiveTab) currentTab$: Observable<AppTab>;
 

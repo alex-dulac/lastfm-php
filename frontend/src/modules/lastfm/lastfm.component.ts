@@ -4,11 +4,11 @@ import { AppState } from "../../shared/app.state";
 import { Observable } from "rxjs";
 
 @Component({
-    selector: 'app-scrobble',
-    templateUrl: './scrobble.component.html',
-    styleUrls: ['./scrobble.component.scss']
+    selector: 'app-lastfm',
+    templateUrl: './lastfm.component.html',
+    styleUrls: ['./lastfm.component.scss']
 })
-export class ScrobbleComponent implements OnInit {
+export class LastFmComponent implements OnInit {
 
     @Select(AppState.getArtistId) currentArtistId$: Observable<string>;
     activeArtistId: string;

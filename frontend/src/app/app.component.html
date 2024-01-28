@@ -4,7 +4,7 @@
     </div>
 
     <div class="dashboard">
-        <div class="header padding">
+        <div class="header-fixed padding">
             <app-header></app-header>
         </div>
 
@@ -15,7 +15,7 @@
             <app-track *ngSwitchCase="tracks"></app-track>
             <app-home *ngSwitchCase="labels"></app-home>
             <app-home *ngSwitchCase="venues"></app-home>
-            <app-scrobble *ngSwitchCase="scrobble"></app-scrobble>
+            <app-lastfm *ngSwitchCase="lastfm"></app-lastfm>
         </div>
     </div>
 </div>

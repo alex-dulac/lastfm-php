@@ -1,8 +1,4 @@
 <div class="padding">
-    <div class="header">
-        <h2><i class="fa-solid fa-compact-disc"></i> Releases</h2>
-    </div>
-    <hr>
     <ng-container *ngIf="releaseGroupId else search">
         <div *ngIf="releaseGroupLoading; else releaseGroupLoaded" class="spinner-wrapper">
             <div class="spinner">
