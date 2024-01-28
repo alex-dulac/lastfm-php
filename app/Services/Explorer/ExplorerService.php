@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Services\Encyclopedia;
+namespace App\Services\Explorer;
 
 use App\Libraries\LastFm\LastFmApi;
 use App\Libraries\Wikipedia\WikipediaApi;
 use App\Libraries\Musicbrainz\MusicBrainzApi;
-use App\Services\Encyclopedia\Model\GetReleaseGroupRequest;
-use App\Services\Encyclopedia\Model\SearchReleaseGroupRequest;
-use App\Services\Encyclopedia\Model\GetArtistRequest;
-use App\Services\Encyclopedia\Model\SearchArtistRequest;
+use App\Services\Explorer\Model\GetReleaseGroupRequest;
+use App\Services\Explorer\Model\SearchReleaseGroupRequest;
+use App\Services\Explorer\Model\GetArtistRequest;
+use App\Services\Explorer\Model\SearchArtistRequest;
 
-class EncyclopediaService
+class ExplorerService
 {
     public function __construct(
         private MusicBrainzApi $musicBrainzApi,

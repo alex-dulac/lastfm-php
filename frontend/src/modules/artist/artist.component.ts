@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ArtistSearchResult } from "@modules/artist/models/artist-search-result.model";
-import { EncyclopediaService } from "@services/api/encyclopedia.service";
+import { ApiService } from "@services/api.service";
 import { FormBuilder } from "@angular/forms";
 import { BehaviorSubject, Observable, Subject } from "rxjs";
 import { ArtistDetailsModel } from "@modules/artist/models/artist-details.model";
@@ -28,10 +28,8 @@ export class ArtistComponent implements OnInit {
     searchResults$: Subject<ArtistSearchResult[]> = new BehaviorSubject<ArtistSearchResult[]>(null);
     currentSearchResults: ArtistSearchResult[];
 
-    destroy: Subject<any> = new Subject<any>();
-
     constructor(
-        private encyclopediaService: EncyclopediaService,
+        private apiService: ApiService,
         private formBuilder: FormBuilder,
         private store: Store
     ) {
@@ -87,7 +85,7 @@ export class ArtistComponent implements OnInit {
             return;
         }
 
-        this.encyclopediaService.searchArtist(userEntry).subscribe((data) => {
+        this.apiService.searchArtist(userEntry).subscribe((data) => {
             this.searchResults$.next(data);
             this.store.dispatch(new SetArtistSearchTerm(userEntry));
             this.searchLoading = false;
@@ -99,7 +97,7 @@ export class ArtistComponent implements OnInit {
         this.artistId = artistId;
         this.store.dispatch(new SetArtistId(artistId));
 
-        this.encyclopediaService.getArtist(artistId).subscribe((data) => {
+        this.apiService.getArtist(artistId).subscribe((data) => {
             this.artistLoading = false;
             this.artist$.next(data);
         });

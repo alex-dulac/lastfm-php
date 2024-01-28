@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\ArtistsController;
+use App\Http\Controllers\LastFmController;
+use App\Http\Controllers\ReleasesController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\EncyclopediaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,8 +17,14 @@ use App\Http\Controllers\EncyclopediaController;
 */
 
 Route::group(["middleware" => ["api"]], function () {
-    Route::get('/Encyclopedia/searchArtist', [EncyclopediaController::class, 'searchArtist']);
-    Route::get('/Encyclopedia/getArtist', [EncyclopediaController::class, 'getArtist']);
-    Route::get('/Encyclopedia/searchReleaseGroup', [EncyclopediaController::class, 'searchReleaseGroup']);
-    Route::get('/Encyclopedia/getReleaseGroup', [EncyclopediaController::class, 'getReleaseGroup']);
+    // Artists
+    Route::get('/Artists/search', [ArtistsController::class, 'search']);
+    Route::get('/Artists/get', [ArtistsController::class, 'get']);
+
+    // Releases
+    Route::get('/Releases/searchReleaseGroup', [ReleasesController::class, 'searchReleaseGroup']);
+    Route::get('/Releases/getReleaseGroup', [ReleasesController::class, 'getReleaseGroup']);
+
+    // LastFM
+    Route::get('/LastFm/test', [LastFmController::class, 'test']);
 });

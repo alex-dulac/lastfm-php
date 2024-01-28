@@ -1,12 +1,12 @@
-import {Component, OnInit} from '@angular/core';
-import {Select, Store} from "@ngxs/store";
-import {AppState} from "../../shared/app.state";
-import {BehaviorSubject, Observable, Subject} from "rxjs";
-import {EncyclopediaService} from "@services/api/encyclopedia.service";
-import {FormBuilder} from "@angular/forms";
-import {SetReleaseGroupId, SetReleaseSearchTerm} from "../../shared/app.actions";
-import {ReleaseGroupSearchResult} from "@modules/release/models/release-search-result.model";
-import {ReleaseGroupDetailsModel} from "@modules/release/models/release-group-details.model";
+import { Component, OnInit } from '@angular/core';
+import { Select, Store } from "@ngxs/store";
+import { AppState } from "../../shared/app.state";
+import { BehaviorSubject, Observable, Subject } from "rxjs";
+import { ApiService } from "@services/api.service";
+import { FormBuilder } from "@angular/forms";
+import { SetReleaseGroupId, SetReleaseSearchTerm } from "../../shared/app.actions";
+import { ReleaseGroupSearchResult } from "@modules/release/models/release-search-result.model";
+import { ReleaseGroupDetailsModel } from "@modules/release/models/release-group-details.model";
 
 @Component({
     selector: 'app-release',
@@ -28,10 +28,8 @@ export class ReleaseComponent implements OnInit {
     searchResults$: Subject<ReleaseGroupSearchResult[]> = new BehaviorSubject<ReleaseGroupSearchResult[]>(null);
     currentSearchResults: ReleaseGroupSearchResult[];
 
-    destroy: Subject<any> = new Subject<any>();
-
     constructor(
-        private encyclopediaService: EncyclopediaService,
+        private apiService: ApiService,
         private formBuilder: FormBuilder,
         private store: Store
     ) {
@@ -87,7 +85,7 @@ export class ReleaseComponent implements OnInit {
             return;
         }
 
-        this.encyclopediaService.searchReleaseGroup(userEntry).subscribe((data) => {
+        this.apiService.searchReleaseGroup(userEntry).subscribe((data) => {
             this.searchResults$.next(data);
             this.store.dispatch(new SetReleaseSearchTerm(userEntry));
             this.searchLoading = false;
@@ -99,7 +97,7 @@ export class ReleaseComponent implements OnInit {
         this.releaseGroupId = releaseGroupId;
         this.store.dispatch(new SetReleaseGroupId(releaseGroupId));
 
-        this.encyclopediaService.getReleaseGroup(releaseGroupId).subscribe((data) => {
+        this.apiService.getReleaseGroup(releaseGroupId).subscribe((data) => {
             this.releaseGroupLoading = false;
             this.releaseGroup$.next(data);
         });
