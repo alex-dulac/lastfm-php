@@ -1,35 +1,88 @@
 html,body {
+    padding: 0;
+    margin: 0;
     height: 100%;
+    width: 100%;
 }
 
 .wrapper {
+    display: flex;
     height: auto;
     min-height: 100%;
+    width: auto;
+    min-width: 100%;
 }
 
 .sidebar {
     position: fixed;
-    min-height: 988px;
-    float: left;
+    height: 100%;
     width: 300px;
     background: #3F72AF;
-    padding: 30px 15px;
+    overflow: auto;
 }
 
 .dashboard {
-    height: auto;
-    min-height: 988px;
-    background: #DBE2EF;
-    margin-left: 300px;
-    padding: 30px 15px;
+    padding-left: 300px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .padding {
-    padding: 20px;
+    padding: 25px;
+}
+
+.content {
+    height: 100%;
+    width: 100%;
+    padding-top: 125px;
+    display: flex;
+    justify-content: center;
+    background: #DBE2EF;
+    overflow: auto;
+}
+
+.header-fixed {
+    position: fixed; 
+    right: 0;
+    width: calc(100% - 300px);
+    z-index: 10;
+    height: 125px;
+    background: #DBE2EF;
+    border-bottom: 1px solid #3F72AF;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: stretch;
+    box-shadow: #3f72af 0 0 10px
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    color: #3F72AF;
+    flex-wrap: wrap;
+    align-items: baseline;
+}
+
+.component-header {
+
 }
 
 h1, h2, h3, h4, h5, p, span, li, a {
     font-family:'Roboto',sans-serif;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.text-center {
+    text-align: center;
+}
+
+label {
+    margin-bottom: 0;
 }
 
 .logo {
@@ -42,18 +95,20 @@ h1, h2, h3, h4, h5, p, span, li, a {
     width: 100px;
 }
 
+.width {
+    width: 100%;
+    
+}
+
 ul {
     list-style-type: none;
     padding: 0;
     margin: 0;
 }
 
-.header {
-    text-align: right;
-}
-
 .search-form {
-    text-align: center;
+    display: flex;
+    justify-content: center;
 }
 
 .artist-details {
@@ -82,7 +137,6 @@ ul {
     color:#112D4E;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
-
 
 .artist-name {
     grid-area: name;
@@ -157,11 +211,6 @@ ul {
     margin: 5px 10px;
 }
 
-.back-button-wrapper {
-    float: left;
-    position: absolute;
-}
-
 a.dashboard-fa-button {
     color: #112D4E;
     text-decoration: none;
@@ -187,6 +236,14 @@ a.dashboard-fa-button:hover {
     align-items: stretch;
     justify-content: flex-start;
     gap: 10px;
+}
+
+.search-result-content {
+    justify-content: space-between;
+}
+
+.result-row span {
+    justify-content: space-between;
 }
 
 .card:hover {
@@ -246,46 +303,7 @@ a.button-sidebar:hover {
 }
 
 .spinner-wrapper {
-    margin-top: 325px;
-    margin-left: 560px;
+    display: flex;
+    justify-content: center;
+    margin-top: 30vh;
 }
-
-/* Spinner source: https://loading.io/css/ */
-
-.spinner {
-    display: inline-block;
-    position: relative;
-    width: 80px;
-    height: 80px;
-}
-.spinner div {
-    box-sizing: border-box;
-    display: block;
-    position: absolute;
-    width: 64px;
-    height: 64px;
-    margin: 8px;
-    border: 8px solid;
-    border-radius: 50%;
-    animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-    border-color: #112D4E transparent transparent transparent;
-}
-.lds-ring div:nth-child(1) {
-    animation-delay: -0.45s;
-}
-.lds-ring div:nth-child(2) {
-    animation-delay: -0.3s;
-}
-.lds-ring div:nth-child(3) {
-    animation-delay: -0.15s;
-}
-@keyframes lds-ring {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
-}
-
-

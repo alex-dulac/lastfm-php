@@ -1,8 +1,4 @@
 <div class="padding">
-    <div class="header">
-        <h2><i class="fa-solid fa-compact-disc"></i> Releases</h2>
-    </div>
-    <hr>
     <ng-container *ngIf="releaseGroupId else search">
         <div *ngIf="releaseGroupLoading; else releaseGroupLoaded" class="spinner-wrapper">
             <div class="spinner">
@@ -36,7 +32,6 @@
     </ng-container>
 
     <ng-template #search>
-        <h1>Releases Search</h1>
         <div class="search-form padding">
             <form [formGroup]="searchBox" (ngSubmit)="searchReleaseGroup()">
                 <label>

@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Services\Encyclopedia\Model;
+namespace App\Services\Explorer\Model;
 
-class SearchArtistRequest
+class SearchReleaseGroupRequest
 {
     private string $searchTerm;
 

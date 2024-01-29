@@ -1,16 +1,19 @@
-# music-encyclopedia-app
+# music-explorer
 
 A PHP backend / Angular frontend application to lookup and pull data related to musical artists, records, etc from third-party APIs.
-
-It is a bit of a work-in-progress.
 
 ### Third-Party APIs that this app utilizes:
 
 - MusicBrainz (https://musicbrainz.org/doc/MusicBrainz_API)
 - MediaWiki (https://www.mediawiki.org/wiki/API:Main_page)
-- LastFm (https://www.last.fm/api) - <i>You will need your own API key for this service</i>
+- LastFm (https://www.last.fm/api)
+- Apple Music API (https://developer.apple.com/documentation/applemusicapi/)
 
-## How To Use:
+## How To Use (Docker):
+
+- Check out the following repository: https://github.com/alex-dulac/docker-music-app
+
+## How To Use (non-Docker):
 
 - Make sure php and angular are installed on your machine.
 - Download the source code.

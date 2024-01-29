@@ -1,14 +1,12 @@
-import {Component, OnInit} from '@angular/core';
-import {Select, Store} from "@ngxs/store";
-import {AppState} from "../../shared/app.state";
-import {BehaviorSubject, Observable, Subject} from "rxjs";
-import {ArtistDetailsModel} from "@modules/artist/models/artist-details.model";
-import {ArtistSearchResult} from "@modules/artist/models/artist-search-result.model";
-import {EncyclopediaService} from "@services/api/encyclopedia.service";
-import {FormBuilder} from "@angular/forms";
-import {SetArtistId, SetArtistSearchTerm, SetReleaseGroupId, SetReleaseSearchTerm} from "../../shared/app.actions";
-import {ReleaseGroupSearchResult} from "@modules/release/models/release-search-result.model";
-import {ReleaseGroupDetailsModel} from "@modules/release/models/release-group-details.model";
+import { Component, OnInit } from '@angular/core';
+import { Select, Store } from "@ngxs/store";
+import { AppState } from "../../shared/app.state";
+import { BehaviorSubject, Observable, Subject } from "rxjs";
+import { ApiService } from "@services/api.service";
+import { FormBuilder } from "@angular/forms";
+import { SetReleaseGroupId, SetReleaseSearchTerm } from "../../shared/app.actions";
+import { ReleaseGroupSearchResult } from "@modules/release/models/release-search-result.model";
+import { ReleaseGroupDetailsModel } from "@modules/release/models/release-group-details.model";
 
 @Component({
     selector: 'app-release',
@@ -28,11 +26,10 @@ export class ReleaseComponent implements OnInit {
     searchLoading: boolean;
     searchBox = this.formBuilder.group({});
     searchResults$: Subject<ReleaseGroupSearchResult[]> = new BehaviorSubject<ReleaseGroupSearchResult[]>(null);
-
-    destroy: Subject<any> = new Subject<any>();
+    currentSearchResults: ReleaseGroupSearchResult[];
 
     constructor(
-        private encyclopediaService: EncyclopediaService,
+        private apiService: ApiService,
         private formBuilder: FormBuilder,
         private store: Store
     ) {
@@ -53,28 +50,28 @@ export class ReleaseComponent implements OnInit {
         this.prepareSearchPage();
     }
 
-    ngOnDestroy() {
-        this.destroy.next(null);
-        this.destroy.complete();
-    }
-
     prepareSearchPage() {
         this.searchBox = this.formBuilder.group({
             releaseSearchTerm: this.releaseSearchTerm,
         });
 
-        let currentSearchResults;
         this.searchResults$.subscribe(result => {
-            currentSearchResults = result;
+            this.currentSearchResults = result;
         });
 
         // skip the search if there is no search term, or if we already have a batch of results
-        if (
-            this.releaseSearchTerm != ''
-            && (currentSearchResults === null || currentSearchResults === undefined || currentSearchResults?.length < 1)
-        ) {
+        if (this.releaseSearchTerm != '' && (
+            this.currentSearchResults === null || 
+            this.currentSearchResults === undefined || 
+            this.currentSearchResults?.length < 1
+        )) {
             this.searchReleaseGroup();
         }
+    }
+
+    clear() {
+        this.store.dispatch(new SetReleaseSearchTerm(''));
+        this.searchBox.setValue({releaseSearchTerm: ''});
     }
 
     searchReleaseGroup(): void {
@@ -88,12 +85,11 @@ export class ReleaseComponent implements OnInit {
             return;
         }
 
-        this.encyclopediaService.searchReleaseGroup(userEntry)
-            .subscribe((data) => {
-                this.searchResults$.next(data);
-                this.store.dispatch(new SetReleaseSearchTerm(userEntry));
-                this.searchLoading = false;
-            });
+        this.apiService.searchReleaseGroup(userEntry).subscribe((data) => {
+            this.searchResults$.next(data);
+            this.store.dispatch(new SetReleaseSearchTerm(userEntry));
+            this.searchLoading = false;
+        });
     }
 
     viewReleaseGroup(releaseGroupId: string) {
@@ -101,11 +97,10 @@ export class ReleaseComponent implements OnInit {
         this.releaseGroupId = releaseGroupId;
         this.store.dispatch(new SetReleaseGroupId(releaseGroupId));
 
-        this.encyclopediaService.getReleaseGroup(releaseGroupId)
-            .subscribe((data) => {
-                this.releaseGroupLoading = false;
-                this.releaseGroup$.next(data);
-            });
+        this.apiService.getReleaseGroup(releaseGroupId).subscribe((data) => {
+            this.releaseGroupLoading = false;
+            this.releaseGroup$.next(data);
+        });
     }
 
     back() {
@@ -113,5 +108,4 @@ export class ReleaseComponent implements OnInit {
         this.releaseGroupId = null;
         this.prepareSearchPage();
     }
-
 }

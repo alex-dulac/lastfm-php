@@ -1,8 +1,9 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\ArtistsController;
+use App\Http\Controllers\LastFmController;
+use App\Http\Controllers\ReleasesController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\EncyclopediaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,8 +16,15 @@ use App\Http\Controllers\EncyclopediaController;
 |
 */
 
-require __DIR__ . '/api/ApiRoutes.php';
+Route::group(["middleware" => ["api"]], function () {
+    // Artists
+    Route::get('/Artists/search', [ArtistsController::class, 'search']);
+    Route::get('/Artists/get', [ArtistsController::class, 'get']);
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+    // Releases
+    Route::get('/Releases/searchReleaseGroup', [ReleasesController::class, 'searchReleaseGroup']);
+    Route::get('/Releases/getReleaseGroup', [ReleasesController::class, 'getReleaseGroup']);
+
+    // LastFM
+    Route::get('/LastFm/test', [LastFmController::class, 'test']);
 });

@@ -30,6 +30,12 @@ export class SetReleaseSearchTerm {
     }
 }
 
+export class SetScrobblingEnabled {
+    static readonly type = '[App] Set Scrobbling Enabled';
+    constructor(public payload: boolean) {
+    }
+}
+
 export class ResetState {
     static readonly type = '[App] Reset State';
     constructor() {

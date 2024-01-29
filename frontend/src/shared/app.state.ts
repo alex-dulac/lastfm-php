@@ -6,7 +6,8 @@ import {
     SetArtistId,
     SetArtistSearchTerm,
     SetReleaseGroupId,
-    SetReleaseSearchTerm
+    SetReleaseSearchTerm,
+    SetScrobblingEnabled
 } from "./app.actions";
 import {Injectable} from "@angular/core";
 
@@ -16,6 +17,7 @@ export interface AppStateModel {
     artistId: string;
     releaseSearchTerm: string;
     releaseGroupId: string;
+    scrobblingEnabled: boolean;
 }
 
 @State<AppStateModel>({
@@ -26,6 +28,7 @@ export interface AppStateModel {
         artistId: '',
         releaseSearchTerm: '',
         releaseGroupId: '',
+        scrobblingEnabled: false,
     }
 })
 
@@ -84,6 +87,16 @@ export class AppState {
         patchState({ releaseSearchTerm: payload });
     }
 
+    @Selector()
+    static getScrobblingEnabled(state: AppStateModel): boolean {
+        return state.scrobblingEnabled;
+    }
+
+    @Action(SetScrobblingEnabled)
+    setScrobblingEnabled({ patchState }: StateContext<AppStateModel>, { payload }: SetScrobblingEnabled) {
+        patchState({ scrobblingEnabled: payload });
+    }
+
     @Action(ResetState)
     resetState({ setState }: StateContext<AppStateModel>) {
         setState({
@@ -92,6 +105,7 @@ export class AppState {
             artistId: '',
             releaseSearchTerm: '',
             releaseGroupId: '',
+            scrobblingEnabled: false
         });
     }
 }

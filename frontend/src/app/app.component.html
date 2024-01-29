@@ -2,24 +2,20 @@
     <div class="sidebar">
         <app-sidebar></app-sidebar>
     </div>
-    <div class="dashboard" [ngSwitch]="activeTab">
-        <div *ngSwitchCase="home">
-            <app-home></app-home>
+
+    <div class="dashboard">
+        <div class="header-fixed padding">
+            <app-header></app-header>
         </div>
-        <div *ngSwitchCase="artist">
-            <app-artist></app-artist>
-        </div>
-        <div *ngSwitchCase="releases">
-            <app-release></app-release>
-        </div>
-        <div *ngSwitchCase="tracks">
-            <app-track></app-track>
-        </div>
-        <div *ngSwitchCase="labels">
-            <app-home></app-home>
-        </div>
-        <div *ngSwitchCase="venues">
-            <app-home></app-home>
+
+        <div class="content" [ngSwitch]="activeTab">
+            <app-home *ngSwitchCase="home"></app-home>
+            <app-artist *ngSwitchCase="artist"></app-artist>
+            <app-release *ngSwitchCase="releases"></app-release>
+            <app-track *ngSwitchCase="tracks"></app-track>
+            <app-home *ngSwitchCase="labels"></app-home>
+            <app-home *ngSwitchCase="venues"></app-home>
+            <app-lastfm *ngSwitchCase="lastfm"></app-lastfm>
         </div>
     </div>
 </div>
