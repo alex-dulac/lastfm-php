@@ -15,6 +15,7 @@ class LastFmApi
     private string $apiKey;
 
     public const GET_ARTIST_URL = '/?method=artist.getinfo&format=json';
+    public const AUTH_URL = '/?method=artist.getinfo&format=json';
 
     public function __construct()
     {
@@ -30,6 +31,32 @@ class LastFmApi
                 . '&api_key=' . $this->apiKey
                 . '&artist=' . $artistName
             );
+
+            if ($response->status() != 200) {
+                Log::error('Client returned a non-200 status: Status Code: ' . $response->status());
+                return false;
+            }
+
+            $responseContent = $response->json();
+
+            if (isset($responseContent['error'])) {
+                Log::error('An error occurred getting info for artist name: " ' . $artistName . ' ". Error code: ' . $responseContent['error']);
+                return false;
+            }
+
+            return $responseContent['artist'];
+
+        } catch (HttpResponseException $exception) {
+            $statusCode = $exception->getResponse()->getStatusCode();
+            $content = $exception->getResponse()->getContent();
+            throw $exception;
+        }
+    }
+
+    public function authorize(): mixed
+    {
+        try {
+            $response = Http::get();
 
             if ($response->status() != 200) {
                 Log::error('Client returned a non-200 status: Status Code: ' . $response->status());

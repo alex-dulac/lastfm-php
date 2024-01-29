@@ -20,14 +20,14 @@ class ArtistsController extends Controller
     ) {
     }
 
-    public function search(Request $request)
+    public function search(Request $request): array
     {
         $parameters = $this->searchArtistRequestFactory->parseRequest($request);
         $data = $this->explorerService->searchArtist($parameters);
         return $this->searchArtistSerializer->serialize($data);
     }
 
-    public function get(Request $request)
+    public function get(Request $request): array
     {
         $parameters = $this->getArtistRequestFactory->parseRequest($request);
         $data = $this->explorerService->getArtistInfo($parameters);
