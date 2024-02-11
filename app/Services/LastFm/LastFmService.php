@@ -10,4 +10,9 @@ class LastFmService
         private LastFmApi $lastFmApi
     ) {
     }
+
+    public function initLastFmConnection()
+    {
+        // this happens after the client stores a token and username... i think
+    }
 }
